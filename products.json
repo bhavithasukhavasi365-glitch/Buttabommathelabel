@@ -1,1 +1,43 @@
-[]
+
+[
+  {
+    "id": 1,
+    "name": "Georgette 2 Tier Maxi",
+    "price": 1899,
+    "sizes": "XS-XXL",
+    "stock": 3,
+    "image": "product-1.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Product 2",
+    "price": 0,
+    "sizes": "XS-XXL",
+    "stock": 0,
+    "image": "product-2.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Pure Chiffon Anarkali",
+    "price": 2799,
+    "sizes": "XS-XXL",
+    "stock": 1,
+    "image": "product-3.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Crush Chiffon Maxi",
+    "price": 2299,
+    "sizes": "XS-XXL",
+    "stock": 1,
+    "image": "product-4.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Pure Chiffon Maxi",
+    "price": 2699,
+    "sizes": "XS-XXL",
+    "stock": 1,
+    "image": "product-5.jpg"
+  }
+]
