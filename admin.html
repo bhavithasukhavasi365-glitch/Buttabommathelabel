@@ -5,7 +5,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Buttabomma | Product Manager</title>
-
 <style>
 *{box-sizing:border-box}
 body{
@@ -35,12 +34,9 @@ button{
   padding:12px 16px;
   border-radius:8px;
   cursor:pointer;
-  margin:5px;
+  margin:5px 5px 5px 0;
 }
-button:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
+button:disabled{opacity:.5;cursor:not-allowed}
 input{
   padding:10px;
   border:1px solid #ccc;
@@ -50,8 +46,7 @@ input{
 }
 .grid{
   display:grid;
-  grid-template-columns:
-    repeat(auto-fit,minmax(230px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
   gap:18px;
 }
 .card{
@@ -71,11 +66,10 @@ input{
   padding:15px;
   border-radius:10px;
   margin:15px 0;
+  line-height:1.6;
 }
 .hidden{display:none}
 .danger{background:#a33b46}
-.success{color:#286b3b}
-.error{color:#a33b46}
 label{
   display:block;
   font-size:13px;
@@ -83,13 +77,17 @@ label{
 }
 #status{
   margin:15px 0;
+  padding:10px;
   overflow-wrap:anywhere;
 }
+.error{color:#a33b46}
+.success{color:#286b3b}
+.upload-button{background:#54765b}
+a{color:#413052}
 </style>
 </head>
 
 <body>
-
 <header>
 <h1>Buttabomma The Label</h1>
 <p>Private Product Management Dashboard</p>
@@ -100,9 +98,7 @@ label{
 <section id="loginSection" class="card">
 <h2>Admin Login</h2>
 <p>Sign in with your authorized Google account.</p>
-<button id="loginButton">
-Sign in with Google
-</button>
+<button id="loginButton">Sign in with Google</button>
 </section>
 
 <section id="adminSection" class="hidden">
@@ -110,7 +106,6 @@ Sign in with Google
 <div class="card">
 <h2>Welcome to Buttabomma Admin</h2>
 <p id="adminEmail"></p>
-
 <button id="logoutButton">Sign Out</button>
 <a href="/" target="_blank" rel="noopener">
 View Customer Catalogue
@@ -118,12 +113,15 @@ View Customer Catalogue
 </div>
 
 <div class="notice">
-Changes saved here update your Supabase database.
-Customers will see updated product information
-when they refresh the catalogue.
+Edit your product details and click Save Changes.
 
-For new photos, upload the image file to your
-GitHub website first, then enter its filename below.
+To add a new photo, click Choose File and then
+Upload Photo. The image will be stored in Supabase.
+
+After uploading, click Save Changes to connect
+the photo to your product.
+
+Existing photos will continue working.
 </div>
 
 <div class="actions">
@@ -132,7 +130,6 @@ GitHub website first, then enter its filename below.
 </div>
 
 <div id="products" class="grid"></div>
-
 </section>
 
 <p id="status" role="status">Checking login...</p>
@@ -151,6 +148,8 @@ const SUPABASE_KEY =
 const ADMIN_UID =
   "b7279374-c934-498f-b36d-278ed441e096";
 
+const BUCKET = "product-images";
+
 const client = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
@@ -158,29 +157,29 @@ const client = window.supabase.createClient(
 
 const loginSection =
   document.getElementById("loginSection");
-
 const adminSection =
   document.getElementById("adminSection");
-
 const productsArea =
   document.getElementById("products");
-
 const statusBox =
   document.getElementById("status");
 
 let currentUser = null;
+let loginVersion = 0;
 
-function setStatus(text, error = false) {
-  statusBox.textContent = text;
-  statusBox.className = error ? "error" : "";
+function setStatus(message, error = false) {
+  statusBox.textContent = message;
+  statusBox.className = error ? "error" : "success";
 }
 
 function isAdmin(user) {
-  return user && user.id === ADMIN_UID;
+  return !!user && user.id === ADMIN_UID;
 }
 
 function showUser(user) {
   currentUser = user;
+  loginVersion++;
+  const version = loginVersion;
 
   if (isAdmin(user)) {
     loginSection.classList.add("hidden");
@@ -189,22 +188,23 @@ function showUser(user) {
     document.getElementById("adminEmail")
       .textContent = user.email || "";
 
-    loadProducts();
+    loadProducts(version);
   } else {
     adminSection.classList.add("hidden");
     loginSection.classList.remove("hidden");
+    productsArea.replaceChildren();
 
     setStatus(
       user
-        ? "This Google account is not authorized to manage products."
-        : "Please sign in to continue."
+        ? "This account is not authorized."
+        : "Please sign in to continue.",
+      !!user
     );
   }
 }
 
 document.getElementById("loginButton")
   .addEventListener("click", async () => {
-
     const { error } =
       await client.auth.signInWithOAuth({
         provider: "google",
@@ -219,16 +219,12 @@ document.getElementById("loginButton")
 
 document.getElementById("logoutButton")
   .addEventListener("click", async () => {
-
     const { error } = await client.auth.signOut();
 
     if (error) {
       setStatus(error.message, true);
     } else {
-      currentUser = null;
-      adminSection.classList.add("hidden");
-      loginSection.classList.remove("hidden");
-      setStatus("Signed out successfully.");
+      showUser(null);
     }
   });
 
@@ -242,7 +238,7 @@ async function checkLogin() {
   showUser(data?.user || null);
 }
 
-async function loadProducts() {
+async function loadProducts(version = loginVersion) {
   if (!isAdmin(currentUser)) return;
 
   setStatus("Loading products...");
@@ -251,6 +247,10 @@ async function loadProducts() {
     .from("products")
     .select("id,name,price,sizes,stock,image")
     .order("id", { ascending: true });
+
+  if (version !== loginVersion || !isAdmin(currentUser)) {
+    return;
+  }
 
   if (error) {
     setStatus(error.message, true);
@@ -280,7 +280,6 @@ function createField(labelText, value, type = "text") {
   }
 
   label.appendChild(input);
-
   return { label, input };
 }
 
@@ -297,11 +296,9 @@ function renderProduct(product) {
   const price = createField("Price", product.price, "number");
   const sizes = createField("Sizes", product.sizes);
   const stock = createField("Stock", product.stock, "number");
-  const image = createField("Image Filename", product.image);
+  const image = createField("Image URL or Filename", product.image);
 
-  [
-    name, price, sizes, stock, image
-  ].forEach(field => {
+  [name, price, sizes, stock, image].forEach(field => {
     card.appendChild(field.label);
   });
 
@@ -309,14 +306,89 @@ function renderProduct(product) {
     img.src = image.input.value.trim();
   });
 
+  // PHOTO UPLOAD
+  const photoLabel = document.createElement("label");
+  photoLabel.textContent = "Choose New Product Photo";
+
+  const photoInput = document.createElement("input");
+  photoInput.type = "file";
+  photoInput.accept = "image/jpeg,image/png,image/webp";
+  photoLabel.appendChild(photoInput);
+  card.appendChild(photoLabel);
+
+  const uploadButton = document.createElement("button");
+  uploadButton.textContent = "Upload Photo";
+  uploadButton.className = "upload-button";
+
+  uploadButton.addEventListener("click", async () => {
+    if (!isAdmin(currentUser)) return;
+
+    const file = photoInput.files[0];
+
+    if (!file) {
+      setStatus("Please choose a photo first.", true);
+      return;
+    }
+
+    const allowed = {
+      "image/jpeg": "jpg",
+      "image/png": "png",
+      "image/webp": "webp"
+    };
+
+    const extension = allowed[file.type];
+
+    if (!extension) {
+      setStatus("Use a JPG, PNG or WebP photo.", true);
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setStatus("Please use a photo under 5 MB.", true);
+      return;
+    }
+
+    uploadButton.disabled = true;
+    setStatus("Uploading photo...");
+
+    const filename =
+      crypto.randomUUID() + "." + extension;
+
+    const { data, error } = await client.storage
+      .from(BUCKET)
+      .upload(filename, file, {
+        contentType: file.type,
+        upsert: false
+      });
+
+    uploadButton.disabled = false;
+
+    if (error) {
+      setStatus("Upload failed: " + error.message, true);
+      return;
+    }
+
+    const { data: urlData } = client.storage
+      .from(BUCKET)
+      .getPublicUrl(data.path);
+
+    image.input.value = urlData.publicUrl;
+    img.src = urlData.publicUrl;
+
+    setStatus(
+      "Photo uploaded! Now click Save Changes."
+    );
+  });
+
+  card.appendChild(uploadButton);
+
+  // SAVE PRODUCT
   const saveButton = document.createElement("button");
   saveButton.textContent = "Save Changes";
 
-  const deleteButton = document.createElement("button");
-  deleteButton.textContent = "Delete Product";
-  deleteButton.className = "danger";
-
   saveButton.addEventListener("click", async () => {
+    if (!isAdmin(currentUser)) return;
+
     const newPrice = Number(price.input.value);
     const newStock = Number(stock.input.value);
 
@@ -329,7 +401,10 @@ function renderProduct(product) {
       !Number.isInteger(newStock) ||
       newStock < 0
     ) {
-      setStatus("Enter a valid name, price and stock.", true);
+      setStatus(
+        "Enter a valid product name, price and stock.",
+        true
+      );
       return;
     }
 
@@ -352,23 +427,31 @@ function renderProduct(product) {
 
     saveButton.disabled = false;
 
-    if (error) {
-      setStatus("Save failed: " + error.message, true);
+    if (error || !data || data.length !== 1) {
+      setStatus(
+        "Save failed: " +
+        (error?.message || "Product was not updated."),
+        true
+      );
       return;
     }
 
-    if (!data || data.length !== 1) {
-      setStatus("Product was not updated. Check permissions.", true);
-      return;
-    }
-
-    setStatus("Product saved successfully!");
     await loadProducts();
+    setStatus("Product saved successfully!");
   });
 
+  card.appendChild(saveButton);
+
+  // DELETE PRODUCT
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "Delete Product";
+  deleteButton.className = "danger";
+
   deleteButton.addEventListener("click", async () => {
+    if (!isAdmin(currentUser)) return;
+
     if (!confirm(
-      "Are you sure you want to delete this product?"
+      "Delete this product from the catalogue?"
     )) return;
 
     deleteButton.disabled = true;
@@ -383,7 +466,7 @@ function renderProduct(product) {
     if (error || !data || data.length !== 1) {
       deleteButton.disabled = false;
       setStatus(
-        error ? error.message : "Product was not deleted.",
+        error?.message || "Product was not deleted.",
         true
       );
       return;
@@ -393,11 +476,11 @@ function renderProduct(product) {
     setStatus("Product deleted successfully!");
   });
 
-  card.appendChild(saveButton);
   card.appendChild(deleteButton);
   productsArea.appendChild(card);
 }
 
+// ADD PRODUCT
 async function addProduct() {
   if (!isAdmin(currentUser)) return;
 
@@ -418,19 +501,18 @@ async function addProduct() {
     })
     .select("id");
 
-  if (error) {
-    setStatus("Add failed: " + error.message, true);
-    return;
-  }
-
-  if (!data || data.length !== 1) {
-    setStatus("Product was not added.", true);
+  if (error || !data || data.length !== 1) {
+    setStatus(
+      "Add failed: " +
+      (error?.message || "Product not created."),
+      true
+    );
     return;
   }
 
   await loadProducts();
   setStatus(
-    "Product added! Enter its details and click Save Changes."
+    "Product added! Upload its photo, enter details and save."
   );
 }
 
@@ -438,10 +520,9 @@ document.getElementById("addButton")
   .addEventListener("click", addProduct);
 
 document.getElementById("reloadButton")
-  .addEventListener("click", loadProducts);
+  .addEventListener("click", () => loadProducts());
 
 checkLogin();
 </script>
-
 </body>
 </html>
