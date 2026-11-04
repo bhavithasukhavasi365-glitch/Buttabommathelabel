@@ -1,9 +1,195 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#bcd4b4"><meta name="description" content="Explore the latest styles at Buttabomma The Label. Browse our boutique catalogue."><title>Buttabomma The Label | Boutique Catalogue</title><style>
-:root{--sage:#bed4b6;--deep:#413052;--ink:#332b3b;--cream:#fcfaf6;--muted:#716a72}*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:system-ui,-apple-system,'Segoe UI',sans-serif}header{background:var(--sage);text-align:center;padding:24px 16px 42px}header img{display:block;width:min(340px,85vw);height:auto;margin:auto;mix-blend-mode:multiply}header h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(27px,5vw,48px);margin:6px 0;color:var(--deep)}header p{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--deep);margin:0}.intro{max-width:1100px;margin:35px auto 18px;padding:0 20px;display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap}.intro h2{font:normal 32px Georgia,serif;margin:0;color:var(--deep)}.intro p{margin:8px 0 0;color:var(--muted)}.count{color:var(--deep);font-size:14px}.grid{max-width:1100px;margin:auto;padding:12px 20px 60px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:25px}.product{background:white;border:1px solid #e9e3e7;border-radius:15px;overflow:hidden;box-shadow:0 5px 20px #382b4010}.photo{height:440px;background:#f4f1ed;display:flex;justify-content:center;align-items:center;cursor:zoom-in}.photo img{width:100%;height:100%;object-fit:contain;display:block}.details{padding:20px}.tag{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#776581}.details h3{font:normal 24px Georgia,serif;color:var(--deep);margin:9px 0}.price{font-weight:700;font-size:23px;margin:8px 0 15px}.meta{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap;font-size:14px;color:#62596a}.stock{background:#e9f0e5;color:#365b3a;padding:6px 10px;border-radius:20px}.stock.low{background:#fff0e5;color:#87502d}footer{text-align:center;background:var(--sage);padding:35px 20px;color:var(--deep)}footer a{color:inherit;font-weight:700}dialog{border:0;background:transparent;padding:12px;max-width:96vw;max-height:96vh}dialog img{max-width:90vw;max-height:89vh;object-fit:contain;border-radius:8px}dialog button{position:fixed;right:24px;top:20px;border:0;border-radius:30px;background:white;color:var(--deep);font-size:25px;width:44px;height:44px;cursor:pointer}dialog::backdrop{background:#000c}@media(max-width:600px){.photo{height:440px}.grid{gap:18px}header{padding-top:16px}.intro{margin-top:28px}}
-</style></head><body><header><img src="logo.jpg" alt="Buttabomma The Label logo"><h1>Our Collection</h1><p>Your ultimate style stop</p></header><section class="intro"><div><h2>Discover Your Style</h2><p>Beautiful silhouettes, thoughtfully selected for you.</p></div><span class="count">5 styles in our collection</span></section><main class="grid" id="catalogue"></main><footer><strong>Buttabomma The Label</strong><p>Browse our collection • Follow us on Instagram</p><a href="https://www.instagram.com/buttabomma_thelabel/" target="_blank" rel="noopener">@buttabomma_thelabel</a></footer><dialog id="viewer"><button aria-label="Close photo" onclick="document.getElementById('viewer').close()">×</button><img id="large" alt="Full-size dress photograph"></dialog><script>
-// To update stock or add/remove items, edit the PRODUCTS list below and upload the website again.
-const PRODUCTS = [{"id": 1, "name": "Pure Chiffon Anarkali", "price": 2799, "sizes": "XS\u2013XXL", "stock": 3, "image": "product-1.jpg"}, {"id": 2, "name": "Pure Georgette Layer Maxi", "price": 2499, "sizes": "XS\u2013XXL", "stock": 1, "image": "product-2.jpg"}, {"id": 3, "name": "Pure Chiffon Maxi", "price": 2699, "sizes": "XS\u2013XXL", "stock": 1, "image": "product-3.jpg"}, {"id": 4, "name": "Georgette 2 Tier Maxi", "price": 1899, "sizes": "XS\u2013XXL", "stock": 3, "image": "product-4.jpg"}, {"id": 5, "name": "Pure Chiffon Maxi", "price": 2699, "sizes": "XS\u2013XXL", "stock": 1, "image": "product-5.jpg"}];
-const root=document.getElementById('catalogue');const viewer=document.getElementById('viewer');
-for(const item of PRODUCTS){const card=document.createElement('article');card.className='product';card.innerHTML=`<div class="photo" role="button" tabindex="0" aria-label="Enlarge ${item.name} photo"><img src="${item.image}" alt="${item.name} full dress photograph" loading="lazy"></div><div class="details"><span class="tag">Style ${String(item.id).padStart(2,'0')}</span><h3>${item.name}</h3><div class="price">₹${item.price.toLocaleString('en-IN')}</div><div class="meta"><span>Sizes: ${item.sizes}</span><span class="stock ${item.stock<=1?'low':''}">${item.stock===0?'Out of stock':`${item.stock} ${item.stock===1?'piece':'pieces'} available`}</span></div></div>`;const open=()=>{document.getElementById('large').src=item.image;viewer.showModal()};const photo=card.querySelector('.photo');photo.addEventListener('click',open);photo.addEventListener('keydown',e=>{if(e.key==='Enter')open()});root.append(card)}
-viewer.addEventListener('click',e=>{if(e.target===viewer)viewer.close()});
-</script></body></html>
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#bcd4b4">
+<meta name="description" content="Explore the latest styles at Buttabomma The Label. Browse our boutique catalogue.">
+<title>Buttabomma The Label | Boutique Catalogue</title>
+<style>
+:root{--sage:#bed4b6;--deep:#413052;--ink:#332b3b;--cream:#fcfaf6;--muted:#716a72}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:system-ui,-apple-system,'Segoe UI',sans-serif}
+header{background:var(--sage);text-align:center;padding:24px 16px 42px}
+header img{display:block;width:min(340px,85vw);height:auto;margin:auto;mix-blend-mode:multiply}
+header h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(27px,5vw,48px);margin:6px 0;color:var(--deep)}
+header p{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--deep);margin:0}
+.intro{max-width:1100px;margin:35px auto 18px;padding:0 20px;display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.intro h2{font:normal 32px Georgia,serif;margin:0;color:var(--deep)}
+.intro p{margin:8px 0 0;color:var(--muted)}
+.count{color:var(--deep);font-size:14px}
+.grid{max-width:1100px;margin:auto;padding:12px 20px 60px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:25px}
+.product{background:white;border:1px solid #e9e3e7;border-radius:15px;overflow:hidden;box-shadow:0 5px 20px #382b4010}
+.photo{height:440px;background:#f4f1ed;display:flex;justify-content:center;align-items:center;cursor:zoom-in}
+.photo img{width:100%;height:100%;object-fit:contain;display:block}
+.details{padding:20px}
+.tag{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#776581}
+.details h3{font:normal 24px Georgia,serif;color:var(--deep);margin:9px 0}
+.price{font-weight:700;font-size:23px;margin:8px 0 15px}
+.meta{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap;font-size:14px;color:#62596a}
+.stock{background:#e9f0e5;color:#365b3a;padding:6px 10px;border-radius:20px}
+.stock.low{background:#fff0e5;color:#87502d}
+footer{text-align:center;background:var(--sage);padding:35px 20px;color:var(--deep)}
+footer a{color:inherit;font-weight:700}
+dialog{border:0;background:transparent;padding:12px;max-width:96vw;max-height:96vh}
+dialog img{max-width:90vw;max-height:89vh;object-fit:contain;border-radius:8px}
+dialog button{position:fixed;right:24px;top:20px;border:0;border-radius:30px;background:white;color:var(--deep);font-size:25px;width:44px;height:44px;cursor:pointer}
+dialog::backdrop{background:#000c}
+.message{max-width:1100px;margin:auto;padding:15px 20px;color:var(--muted)}
+@media(max-width:600px){.photo{height:440px}.grid{gap:18px}header{padding-top:16px}.intro{margin-top:28px}}
+</style>
+</head>
+<body>
+<header>
+<img src="logo.jpg" alt="Buttabomma The Label logo">
+<h1>Our Collection</h1>
+<p>Your ultimate style stop</p>
+</header>
+
+<section class="intro">
+<div>
+<h2>Discover Your Style</h2>
+<p>Beautiful silhouettes, thoughtfully selected for you.</p>
+</div>
+<span class="count" id="count">Loading collection...</span>
+</section>
+
+<p class="message" id="message" role="status">Loading our latest styles...</p>
+<main class="grid" id="catalogue"></main>
+
+<footer>
+<strong>Buttabomma The Label</strong>
+<p>Browse our collection • Follow us on Instagram</p>
+<a href="https://www.instagram.com/buttabomma_thelabel/" target="_blank" rel="noopener">@buttabomma_thelabel</a>
+</footer>
+
+<dialog id="viewer">
+<button aria-label="Close photo" onclick="document.getElementById('viewer').close()">×</button>
+<img id="large" alt="Full-size dress photograph">
+</dialog>
+
+<script>
+const SUPABASE_URL = "https://knzgtcrtxrilyqvxxjwz.supabase.co";
+const SUPABASE_KEY = "sb_publishable_q7yS4kyiNe527X7pRFOVjg_oc_wtYTO";
+
+const root = document.getElementById("catalogue");
+const viewer = document.getElementById("viewer");
+const count = document.getElementById("count");
+const message = document.getElementById("message");
+
+function makeProductCard(item) {
+  const card = document.createElement("article");
+  card.className = "product";
+
+  const photo = document.createElement("div");
+  photo.className = "photo";
+  photo.setAttribute("role", "button");
+  photo.setAttribute("tabindex", "0");
+  photo.setAttribute("aria-label", "Enlarge product photo");
+
+  const img = document.createElement("img");
+  img.src = item.image || "";
+  img.alt = (item.name || "Dress") + " full dress photograph";
+  img.loading = "lazy";
+  photo.appendChild(img);
+
+  const details = document.createElement("div");
+  details.className = "details";
+
+  const tag = document.createElement("span");
+  tag.className = "tag";
+  tag.textContent = "Style " + String(item.id).padStart(2, "0");
+
+  const name = document.createElement("h3");
+  name.textContent = item.name || "Boutique Style";
+
+  const price = document.createElement("div");
+  price.className = "price";
+  price.textContent = "₹" + Number(item.price || 0).toLocaleString("en-IN");
+
+  const meta = document.createElement("div");
+  meta.className = "meta";
+
+  const sizes = document.createElement("span");
+  sizes.textContent = "Sizes: " + (item.sizes || "Contact us");
+
+  const stock = document.createElement("span");
+  const quantity = Number(item.stock || 0);
+  stock.className = "stock" + (quantity <= 1 ? " low" : "");
+  stock.textContent = quantity === 0
+    ? "Out of stock"
+    : quantity + " " + (quantity === 1 ? "piece" : "pieces") + " available";
+
+  meta.append(sizes, stock);
+  details.append(tag, name, price, meta);
+  card.append(photo, details);
+
+  const open = () => {
+    document.getElementById("large").src = item.image || "";
+    viewer.showModal();
+  };
+
+  photo.addEventListener("click", open);
+  photo.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      open();
+    }
+  });
+
+  return card;
+}
+
+async function loadProducts() {
+  try {
+    const response = await fetch(
+      SUPABASE_URL + "/rest/v1/products?select=id,name,price,sizes,stock,image&order=id.asc",
+      {
+        headers: {
+          "apikey": SUPABASE_KEY
+        },
+        cache: "no-store"
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Supabase returned " + response.status);
+    }
+
+    const products = await response.json();
+
+    if (!Array.isArray(products)) {
+      throw new Error("Unexpected product data");
+    }
+
+    root.replaceChildren();
+
+    products.forEach(item => {
+      root.appendChild(makeProductCard(item));
+    });
+
+    count.textContent = products.length + " styles in our collection";
+    message.textContent = products.length === 0
+      ? "New styles are coming soon."
+      : "";
+
+    if (products.length > 0) {
+      message.hidden = true;
+    }
+
+  } catch (error) {
+    console.error("Catalogue loading error:", error);
+    count.textContent = "Collection unavailable";
+    message.textContent = "Unable to load our collection right now. Please try again shortly.";
+  }
+}
+
+viewer.addEventListener("click", e => {
+  if (e.target === viewer) viewer.close();
+});
+
+loadProducts();
+</script>
+</body>
+</html>
