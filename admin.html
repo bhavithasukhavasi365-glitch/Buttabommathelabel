@@ -4,45 +4,133 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Buttabomma | Easy Product Manager</title>
+<title>Buttabomma | Product Manager</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#fcfaf6;color:#332b3b;font:15px system-ui,Arial,sans-serif}
-header{background:linear-gradient(120deg,#dce9d5,#eee5ed);padding:28px 16px;text-align:center}
-h1,h2{font-family:Georgia,serif;font-weight:normal;color:#413052}
+body{
+  margin:0;
+  background:#fcfaf6;
+  color:#332b3b;
+  font:15px system-ui,Arial,sans-serif;
+}
+header{
+  background:linear-gradient(120deg,#dce9d5,#eee5ed);
+  padding:28px 16px;
+  text-align:center;
+}
+h1,h2{
+  font-family:Georgia,serif;
+  font-weight:normal;
+  color:#413052;
+}
 h1{margin:0 0 6px}
-main{max-width:1050px;margin:auto;padding:20px}
-.panel,.item{background:white;border:1px solid #e9e3e7;border-radius:13px;padding:20px;margin-bottom:18px;box-shadow:0 3px 14px #332b3b0c}
+main{max-width:1100px;margin:auto;padding:20px}
+.panel,.item{
+  background:white;
+  border:1px solid #e9e3e7;
+  border-radius:13px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 3px 14px #332b3b0c;
+}
 .hidden{display:none!important}
-.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.fields{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:12px;
+}
 label{display:block;font-weight:600;font-size:13px}
-input,select{display:block;width:100%;padding:11px;margin-top:6px;border:1px solid #d7d0da;border-radius:8px;background:white;font:inherit}
-button{background:#413052;color:white;border:0;border-radius:8px;padding:12px 18px;cursor:pointer;font:inherit;margin:5px 6px 5px 0}
+input,select{
+  display:block;
+  width:100%;
+  padding:11px;
+  margin-top:6px;
+  border:1px solid #d7d0da;
+  border-radius:8px;
+  background:white;
+  font:inherit;
+}
+button{
+  background:#413052;
+  color:white;
+  border:0;
+  border-radius:8px;
+  padding:12px 18px;
+  cursor:pointer;
+  font:inherit;
+  margin:5px 6px 5px 0;
+}
 button:disabled{opacity:.5;cursor:wait}
 .danger{background:#a43e48}
 .secondary{background:#54765b}
 .muted{color:#716a72;font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.item img,.preview{width:100%;height:250px;object-fit:contain;background:#f6f2ed;border-radius:8px}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:16px;
+}
+.item img.cover{
+  width:100%;
+  height:250px;
+  object-fit:contain;
+  background:#f6f2ed;
+  border-radius:8px;
+}
 .item h3{margin:10px 0 5px}
-.thumbs{display:flex;gap:6px;overflow-x:auto;margin:8px 0}
-.thumbs img{width:64px;height:75px;object-fit:contain;border:1px solid #ddd;flex:none}
-.wide input[type=checkbox]{display:inline-block;margin-right:8px}
-#status{padding:13px;border-radius:8px;background:#eaf1e5;margin:15px 0;overflow-wrap:anywhere}
-#status.error{background:#ffe8e8;color:#8b2331}
-.toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.thumbs{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  margin:8px 0;
+}
+.thumbs img{
+  width:64px;
+  height:75px;
+  object-fit:contain;
+  border:1px solid #ddd;
+  flex:none;
+}
+.wide input[type=checkbox]{
+  display:inline-block;
+  width:auto;
+  margin-right:8px;
+}
+#status{
+  padding:13px;
+  border-radius:8px;
+  background:#eaf1e5;
+  margin:15px 0;
+  overflow-wrap:anywhere;
+}
+#status.error{
+  background:#ffe8e8;
+  color:#8b2331;
+}
+.toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:8px;
+}
 .photo-note{font-size:12px;color:#716a72}
 .item .fields{grid-template-columns:1fr 1fr}
 .item .wide{grid-column:1/-1}
-@media(max-width:520px){.item .fields{grid-template-columns:1fr}}
+@media(max-width:520px){
+  .item .fields{grid-template-columns:1fr}
+}
 </style>
 </head>
+
 <body>
 <header>
 <h1>Buttabomma The Label</h1>
 <div>Easy Product Manager · Multiple Photos</div>
 </header>
+
 <main>
+
 <section id="login" class="panel">
 <h2>Admin Login</h2>
 <p>Sign in with your authorized Google account.</p>
@@ -50,416 +138,655 @@ button:disabled{opacity:.5;cursor:wait}
 </section>
 
 <section id="dashboard" class="hidden">
+
 <div class="panel toolbar">
 <div>
 <strong id="email"></strong>
-<p class="muted">Products publish automatically when saved.</p>
+<p class="muted">
+Products are published automatically when saved.
+</p>
 </div>
 <div>
-<a href="/" target="_blank" rel="noopener">View customer catalogue</a>
-<button id="signOut" class="secondary">Sign out</button>
+<a href="/" target="_blank" rel="noopener">
+View Customer Catalogue
+</a>
+<button id="signOut" class="secondary">
+Sign Out
+</button>
 </div>
 </div>
 
 <section class="panel">
 <h2>Add New Product</h2>
+
 <form id="addForm">
 <div class="fields">
-<label>Product name *
-<input name="name" required placeholder="Pure Chiffon Maxi">
+
+<label>Product Name *
+<input name="name" required
+placeholder="Pure Chiffon Maxi">
 </label>
+
 <label>Category *
 <select name="category" required></select>
 </label>
+
 <label>Price (₹) *
-<input name="price" type="number" min="0.01" step="0.01" required>
+<input name="price" type="number"
+min="0.01" step="0.01" required>
 </label>
-<label>Available pieces *
-<input name="stock" type="number" min="0" step="1" required value="1">
+
+<label>Available Pieces *
+<input name="stock" type="number"
+min="0" step="1" required value="1">
 </label>
+
 <label>Sizes
 <input name="sizes" value="XS-XXL">
 </label>
-<label>Product photos *
-<input name="photo" type="file" accept="image/jpeg,image/png,image/webp" multiple required>
+
+<label>Product Photos *
+<input name="photo" type="file"
+accept="image/jpeg,image/png,image/webp"
+multiple required>
 </label>
+
 </div>
+
 <p class="photo-note">
-Choose multiple JPG, PNG or WebP photos (maximum 5 MB each).
-First photo is the cover. No URLs needed.
+Select multiple JPG, PNG or WebP photos.
+Maximum 5 MB per photo.
+The first photo becomes the cover image.
 </p>
-<button id="addSave" type="submit">Save & Publish Product</button>
+
+<button id="addSave" type="submit">
+Save & Publish Product
+</button>
 </form>
 </section>
 
 <div class="toolbar">
 <h2>Your Products</h2>
-<button id="reload" class="secondary">Refresh Products</button>
+<button id="reload" class="secondary">
+Refresh Products
+</button>
 </div>
+
 <div id="products" class="grid"></div>
+
 </section>
-<div id="status" role="status">Checking login…</div>
+
+<div id="status" role="status">
+Checking login…
+</div>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+
 <script>
-const SUPABASE_URL="https://knzgtcrtxrilyqvxxjwz.supabase.co";
-const SUPABASE_KEY="sb_publishable_q7yS4kyiNe527X7pRFOVjg_oc_wtYTO";
-const ADMIN_UID="b7279374-c934-498f-b36d-278ed441e096";
+const SUPABASE_URL =
+"https://knzgtcrtxrilyqvxxjwz.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_q7yS4kyiNe527X7pRFOVjg_oc_wtYTO";
+
+const ADMIN_UID =
+"b7279374-c934-498f-b36d-278ed441e096";
+
 const BUCKET="product-images";
 
 const CATEGORY_LIST=[
-"Georgette","Pure Georgette","Pure Chiffon",
-"Chiffon Georgette","Crush Chiffon","Mul Chanderi",
-"Mul Cotton","Half Sarees","Designer Frocks"
+"Georgette",
+"Pure Georgette",
+"Pure Chiffon",
+"Chiffon Georgette",
+"Crush Chiffon",
+"Mul Chanderi",
+"Mul Cotton",
+"Half Sarees",
+"Designer Frocks"
 ];
 
-const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const db=window.supabase.createClient(
+SUPABASE_URL,SUPABASE_KEY
+);
+
 const $=id=>document.getElementById(id);
+
 let user=null;
 
-function status(message,error=false){
-$('status').textContent=message;
-$('status').className=error?'error':'';
+function showStatus(message,error=false){
+$("status").textContent=message;
+$("status").className=error?"error":"";
 }
 
-function admin(){
+function isAdmin(){
 return !!user&&user.id===ADMIN_UID;
 }
 
-function categorySelect(selected=''){
-const s=document.createElement('select');
-s.required=true;
-s.add(new Option('Select category',''));
-CATEGORY_LIST.forEach(x=>s.add(new Option(x,x)));
-s.value=selected;
-return s;
-}
+function makeCategorySelect(selected=""){
+const select=document.createElement("select");
+select.required=true;
+select.add(new Option("Select category",""));
 
-const newCategory=$('addForm').querySelector('select[name=category]');
-CATEGORY_LIST.forEach(x=>newCategory.add(new Option(x,x)));
-newCategory.insertBefore(new Option('Select category',''),newCategory.firstChild);
-
-async function authView(){
-const {data}=await db.auth.getUser();
-user=data?.user||null;
-$('login').classList.toggle('hidden',admin());
-$('dashboard').classList.toggle('hidden',!admin());
-if(admin()){
-$('email').textContent=user.email||'';
-await load();
-}else{
-status(user?'This Google account is not authorized.':'Sign in to manage products.',!!user);
-}
-}
-
-$('signIn').onclick=async()=>{
-const {error}=await db.auth.signInWithOAuth({
-provider:'google',
-options:{redirectTo:'https://buttabommathelabel.netlify.app/admin.html'}
+CATEGORY_LIST.forEach(category=>{
+select.add(new Option(category,category));
 });
-if(error)status(error.message,true);
+
+select.value=selected;
+return select;
+}
+
+const addCategory=$("addForm")
+.querySelector('select[name="category"]');
+
+addCategory.add(new Option("Select category",""));
+
+CATEGORY_LIST.forEach(category=>{
+addCategory.add(new Option(category,category));
+});
+
+async function updateAuth(){
+const {data,error}=await db.auth.getUser();
+
+if(error){
+console.warn("Auth check:",error.message);
+}
+
+user=data?.user||null;
+
+$("login").classList.toggle("hidden",isAdmin());
+$("dashboard").classList.toggle("hidden",!isAdmin());
+
+if(isAdmin()){
+$("email").textContent=user.email||"";
+await loadProducts();
+}else{
+showStatus(
+user?"This Google account is not authorized.":
+"Sign in to manage your products.",
+!!user
+);
+}
+}
+
+$("signIn").onclick=async()=>{
+const {error}=await db.auth.signInWithOAuth({
+provider:"google",
+options:{
+redirectTo:
+"https://buttabommathelabel.netlify.app/admin.html"
+}
+});
+
+if(error)showStatus(error.message,true);
 };
 
-$('signOut').onclick=async()=>{
+$("signOut").onclick=async()=>{
 await db.auth.signOut();
-await authView();
+await updateAuth();
 };
 
-function validateFile(file){
-if(!file)return 'Please choose a product photo.';
-if(!['image/jpeg','image/png','image/webp'].includes(file.type))
-return 'Use a JPG, PNG or WebP image.';
-if(file.size>5*1024*1024)
-return 'Photo must be under 5 MB.';
-return '';
+function validatePhoto(file){
+if(!file)throw Error("Choose a product photo.");
+
+const allowed=[
+"image/jpeg",
+"image/png",
+"image/webp"
+];
+
+if(!allowed.includes(file.type)){
+throw Error("Only JPG, PNG and WebP photos are supported.");
+}
+
+if(file.size>5*1024*1024){
+throw Error("Each photo must be smaller than 5 MB.");
+}
 }
 
 async function uploadPhoto(file){
-const problem=validateFile(file);
-if(problem)throw Error(problem);
+validatePhoto(file);
 
-const ext={
-'image/jpeg':'jpg',
-'image/png':'png',
-'image/webp':'webp'
-}[file.type];
+const extensions={
+"image/jpeg":"jpg",
+"image/png":"png",
+"image/webp":"webp"
+};
 
-const path=crypto.randomUUID()+'.'+ext;
+const extension=extensions[file.type];
+const path=crypto.randomUUID()+"."+extension;
 
-const {data,error}=await db.storage.from(BUCKET)
-.upload(path,file,{contentType:file.type,upsert:false});
+const {data,error}=await db.storage
+.from(BUCKET)
+.upload(path,file,{
+contentType:file.type,
+upsert:false
+});
 
-if(error)throw Error('Photo upload failed: '+error.message+
-' — check Supabase Storage bucket and upload policy.');
-
-const {data:publicData}=db.storage.from(BUCKET).getPublicUrl(data.path);
-return {url:publicData.publicUrl,path:data.path};
+if(error){
+throw Error("Photo upload failed: "+error.message);
 }
 
-function payload(form){
-const f=new FormData(form);
-const name=String(f.get('name')||'').trim();
-const category=String(f.get('category')||'');
-const price=Number(f.get('price'));
-const stock=Number(f.get('stock'));
-
-if(!name||!CATEGORY_LIST.includes(category)||
-!Number.isFinite(price)||price<=0||
-!Number.isInteger(stock)||stock<0||
-String(f.get('price')).trim()===''||
-String(f.get('stock')).trim()===''){
-throw Error('Enter product name, category, valid price and stock.');
-}
+const {data:publicData}=db.storage
+.from(BUCKET)
+.getPublicUrl(data.path);
 
 return {
-name,category,price,stock,
-sizes:String(f.get('sizes')||'').trim(),
-status:'published'
+url:publicData.publicUrl,
+path:data.path
 };
 }
 
-async function cleanupUploaded(paths){
-if(paths.length)await db.storage.from(BUCKET).remove(paths);
-}
-
-async function uploadMany(files,paths){
+async function uploadPhotos(files,uploadedPaths){
 const urls=[];
-for(const file of files){
-status('Uploading photo '+(urls.length+1)+' of '+files.length+'…');
-const uploaded=await uploadPhoto(file);
-paths.push(uploaded.path);
+
+for(let i=0;i<files.length;i++){
+showStatus(
+"Uploading photo "+(i+1)+" of "+files.length+"…"
+);
+
+const uploaded=await uploadPhoto(files[i]);
+
+uploadedPaths.push(uploaded.path);
 urls.push(uploaded.url);
 }
+
 return urls;
 }
 
-function photosOf(p){
-const arr=Array.isArray(p.images)?
-p.images.filter(x=>typeof x==='string'&&x.trim()):[];
-const primary=p.image||'';
-return [primary,...arr].filter((x,i,a)=>x&&a.indexOf(x)===i);
+async function cleanupUploads(paths){
+if(paths.length){
+const {error}=await db.storage
+.from(BUCKET).remove(paths);
+
+if(error){
+console.warn("Upload cleanup failed:",error.message);
+}
+}
 }
 
-function thumbnails(urls){
-const row=document.createElement('div');
-row.className='thumbs';
+function getValues(form){
+const values=new FormData(form);
+
+const name=String(values.get("name")||"").trim();
+const category=String(values.get("category")||"");
+const price=Number(values.get("price"));
+const stock=Number(values.get("stock"));
+
+if(!name){
+throw Error("Enter the product name.");
+}
+
+if(!CATEGORY_LIST.includes(category)){
+throw Error("Select a valid category.");
+}
+
+if(
+String(values.get("price")||"").trim()===""||
+!Number.isFinite(price)||price<=0
+){
+throw Error("Enter a valid price.");
+}
+
+if(
+String(values.get("stock")||"").trim()===""||
+!Number.isInteger(stock)||stock<0
+){
+throw Error("Enter a valid stock quantity.");
+}
+
+return {
+name,
+category,
+price,
+stock,
+sizes:String(values.get("sizes")||"").trim(),
+status:"published"
+};
+}
+
+function getProductPhotos(product){
+const first=String(product.image||"").trim();
+
+const additional=Array.isArray(product.images)
+?product.images.filter(url=>
+typeof url==="string"&&url.trim()
+):[];
+
+return [...new Set(
+[first,...additional].filter(Boolean)
+)];
+}
+
+function createThumbnails(urls){
+const row=document.createElement("div");
+row.className="thumbs";
+
 urls.forEach(url=>{
-const im=document.createElement('img');
-im.src=url;
-im.alt='Product photo';
-row.append(im);
+const img=document.createElement("img");
+img.src=url;
+img.alt="Product photo";
+img.loading="lazy";
+row.appendChild(img);
 });
+
 return row;
 }
 
-$('addForm').onsubmit=async e=>{
-e.preventDefault();
-if(!admin())return;
+// ADD PRODUCT
+$("addForm").addEventListener("submit",async event=>{
+event.preventDefault();
 
-const btn=$('addSave');
-btn.disabled=true;
-const paths=[];
+if(!isAdmin())return;
+
+// Save the form reference before awaiting uploads.
+const form=event.currentTarget;
+const saveButton=$("addSave");
+const uploadedPaths=[];
+
+saveButton.disabled=true;
 
 try{
-const values=payload(e.currentTarget);
-const files=[...e.currentTarget.elements.photo.files];
-if(!files.length)throw Error('Choose at least one photo.');
+const values=getValues(form);
 
-const urls=await uploadMany(files,paths);
-const {data,error}=await db.from('products')
-.insert({...values,image:urls[0],images:urls})
-.select('id');
+const files=[
+...form.querySelector('input[name="photo"]').files
+];
 
-if(error||!data?.length)
-throw Error('Product save failed: '+(error?.message||'No row returned. Check database policies.'));
-
-e.currentTarget.reset();
-await load(false);
-status('Product published with '+urls.length+' photo(s)!');
-}catch(err){
-await cleanupUploaded(paths);
-status(err.message,true);
-}finally{
-btn.disabled=false;
+if(!files.length){
+throw Error("Choose at least one photo.");
 }
-};
 
-function field(labelText,name,value,type='text'){
-const label=document.createElement('label');
+const urls=await uploadPhotos(files,uploadedPaths);
+
+showStatus("Saving product…");
+
+const {data,error}=await db.from("products")
+.insert({
+...values,
+image:urls[0],
+images:urls
+})
+.select("id");
+
+if(error||!data?.length){
+throw Error(
+"Product save failed: "+
+(error?.message||"No row returned.")
+);
+}
+
+// Only clean up newly uploaded files on an actual save failure.
+uploadedPaths.length=0;
+
+// Reset using the saved form reference.
+form.reset();
+
+showStatus(
+"Product published successfully with "+
+urls.length+" photo(s)!"
+);
+
+await loadProducts(false);
+
+}catch(error){
+await cleanupUploads(uploadedPaths);
+showStatus(error.message,true);
+}finally{
+saveButton.disabled=false;
+}
+});
+
+function makeField(labelText,name,value,type="text"){
+const label=document.createElement("label");
 label.textContent=labelText;
-const input=document.createElement('input');
+
+const input=document.createElement("input");
 input.name=name;
 input.type=type;
-input.value=value??'';
+input.value=value??"";
 
-if(type==='number'){
-input.min=name==='price'?'0.01':'0';
-input.step=name==='price'?'0.01':'1';
+if(type==="number"){
+input.min=name==="price"?"0.01":"0";
+input.step=name==="price"?"0.01":"1";
 }
 
-label.append(input);
+label.appendChild(input);
 return label;
 }
 
-async function load(showMessage=true){
-if(!admin())return;
+async function loadProducts(showMessage=true){
+if(!isAdmin())return;
 
-const {data,error}=await db.from('products')
-.select('id,name,category,price,stock,sizes,image,images,status')
-.order('id',{ascending:false});
+const {data,error}=await db.from("products")
+.select(
+"id,name,category,price,stock,sizes,image,images,status"
+)
+.order("id",{ascending:false});
 
 if(error){
-status('Could not load products: '+error.message,true);
+showStatus("Cannot load products: "+error.message,true);
 return;
 }
 
-$('products').replaceChildren();
-(data||[]).forEach(render);
-if(showMessage)status('Loaded '+data.length+' products.');
+$("products").replaceChildren();
+
+(data||[]).forEach(renderProduct);
+
+if(showMessage){
+showStatus("Loaded "+data.length+" products.");
+}
 }
 
-function render(p){
-const card=document.createElement('div');
-card.className='item';
+function renderProduct(product){
+const card=document.createElement("div");
+card.className="item";
 
-const img=document.createElement('img');
-img.src=p.image||'';
-img.alt=p.name||'Product photo';
-img.onerror=()=>{
-img.alt='Image not found — upload a new photo below';
+const existingPhotos=getProductPhotos(product);
+
+const cover=document.createElement("img");
+cover.className="cover";
+cover.src=existingPhotos[0]||"";
+cover.alt=product.name||"Product photo";
+
+cover.onerror=()=>{
+cover.alt="Photo unavailable";
 };
-card.append(img);
 
-const existing=photosOf(p);
-card.append(thumbnails(existing));
+card.appendChild(cover);
+card.appendChild(createThumbnails(existingPhotos));
 
-const title=document.createElement('h3');
-title.textContent=p.name||'Unnamed product';
-card.append(title);
+const title=document.createElement("h3");
+title.textContent=product.name||"Unnamed product";
+card.appendChild(title);
 
-const note=document.createElement('p');
-note.className='muted';
-note.textContent=p.status==='published'?
-'Visible on website':'Not visible yet — save to publish';
-card.append(note);
+const note=document.createElement("p");
+note.className="muted";
+note.textContent=product.status==="published"
+?"Visible on website":"Save to publish product";
 
-const form=document.createElement('form');
-const fields=document.createElement('div');
-fields.className='fields';
+card.appendChild(note);
+
+const form=document.createElement("form");
+
+const fields=document.createElement("div");
+fields.className="fields";
 
 fields.append(
-field('Product name','name',p.name),
-field('Price (₹)','price',p.price,'number'),
-field('Stock','stock',p.stock,'number'),
-field('Sizes','sizes',p.sizes)
+makeField("Product Name","name",product.name),
+makeField("Price (₹)","price",product.price,"number"),
+makeField("Stock","stock",product.stock,"number"),
+makeField("Sizes","sizes",product.sizes)
 );
 
-const label=document.createElement('label');
-label.textContent='Category';
-const select=categorySelect(p.category);
-select.name='category';
-label.append(select);
-fields.append(label);
+const categoryLabel=document.createElement("label");
+categoryLabel.textContent="Category";
 
-const photo=field('Add photos (optional)','photo','','file');
-photo.className='wide';
-photo.querySelector('input').accept='image/jpeg,image/png,image/webp';
-photo.querySelector('input').multiple=true;
-fields.append(photo);
+const categorySelect=makeCategorySelect(
+product.category
+);
 
-const replaceLabel=document.createElement('label');
-replaceLabel.className='wide';
-const replace=document.createElement('input');
-replace.type='checkbox';
-replace.name='replacePhotos';
-replace.style.width='auto';
+categorySelect.name="category";
+categoryLabel.appendChild(categorySelect);
+fields.appendChild(categoryLabel);
+
+const photoLabel=document.createElement("label");
+photoLabel.textContent="Add Photos (optional)";
+photoLabel.className="wide";
+
+const photoInput=document.createElement("input");
+photoInput.type="file";
+photoInput.name="photo";
+photoInput.accept="image/jpeg,image/png,image/webp";
+photoInput.multiple=true;
+
+photoLabel.appendChild(photoInput);
+fields.appendChild(photoLabel);
+
+const replaceLabel=document.createElement("label");
+replaceLabel.className="wide";
+
+const replaceInput=document.createElement("input");
+replaceInput.type="checkbox";
+replaceInput.name="replacePhotos";
+replaceInput.style.width="auto";
 
 replaceLabel.append(
-replace,
-document.createTextNode(' Replace all old photos with selected new photos')
+replaceInput,
+document.createTextNode(
+" Replace all old photos with selected new photos"
+)
 );
-fields.append(replaceLabel);
-form.append(fields);
 
-const save=document.createElement('button');
-save.type='submit';
-save.textContent='Save & Publish';
-form.append(save);
+fields.appendChild(replaceLabel);
+form.appendChild(fields);
 
-const del=document.createElement('button');
-del.type='button';
-del.className='danger';
-del.textContent='Delete';
-form.append(del);
+const saveButton=document.createElement("button");
+saveButton.type="submit";
+saveButton.textContent="Save & Publish";
+form.appendChild(saveButton);
 
-card.append(form);
-$('products').append(card);
+const deleteButton=document.createElement("button");
+deleteButton.type="button";
+deleteButton.className="danger";
+deleteButton.textContent="Delete";
+form.appendChild(deleteButton);
 
-form.onsubmit=async e=>{
-e.preventDefault();
-if(!admin())return;
-save.disabled=true;
-const paths=[];
+card.appendChild(form);
+$("products").appendChild(card);
+
+// UPDATE EXISTING PRODUCT
+form.addEventListener("submit",async event=>{
+event.preventDefault();
+
+if(!isAdmin())return;
+
+const currentForm=event.currentTarget;
+const uploadedPaths=[];
+
+saveButton.disabled=true;
 
 try{
-const values=payload(form);
-const files=[...form.elements.photo.files];
-let urls=replace.checked?[]:photosOf(p);
+const values=getValues(currentForm);
+
+const files=[...photoInput.files];
+const replace=replaceInput.checked;
+
+if(replace&&files.length===0){
+throw Error(
+"Choose new photos before selecting Replace all old photos."
+);
+}
+
+let urls=replace?[]:getProductPhotos(product);
 
 if(files.length){
-const added=await uploadMany(files,paths);
+const added=await uploadPhotos(files,uploadedPaths);
 urls.push(...added);
 }
-if(!urls.length)throw Error('Choose at least one photo.');
 
-status('Saving product gallery…');
+urls=[...new Set(urls)];
 
-const {data,error}=await db.from('products')
-.update({...values,image:urls[0],images:urls})
-.eq('id',p.id)
-.select('id');
-
-if(error||!data?.length)
-throw Error('Save failed: '+(error?.message||'No row updated.'));
-
-await load(false);
-status('Product saved with '+urls.length+' photo(s)!');
-}catch(err){
-await cleanupUploaded(paths);
-status(err.message,true);
-}finally{
-save.disabled=false;
+if(!urls.length){
+throw Error("Choose at least one product photo.");
 }
-};
 
-del.onclick=async()=>{
-if(!admin()||!confirm('Permanently delete '+(p.name||'this product')+'?'))
-return;
+showStatus("Saving product gallery…");
 
-del.disabled=true;
-
-const {data,error}=await db.from('products')
-.delete().eq('id',p.id).select('id');
+const {data,error}=await db.from("products")
+.update({
+...values,
+image:urls[0],
+images:urls
+})
+.eq("id",product.id)
+.select("id");
 
 if(error||!data?.length){
-status('Delete failed: '+(error?.message||'No row deleted.'),true);
-del.disabled=false;
+throw Error(
+"Save failed: "+(error?.message||"No row updated.")
+);
+}
+
+uploadedPaths.length=0;
+
+showStatus(
+"Product saved with "+urls.length+" photo(s)!"
+);
+
+await loadProducts(false);
+
+}catch(error){
+await cleanupUploads(uploadedPaths);
+showStatus(error.message,true);
+}finally{
+saveButton.disabled=false;
+}
+});
+
+// DELETE PRODUCT
+deleteButton.addEventListener("click",async()=>{
+if(!isAdmin())return;
+
+const confirmed=confirm(
+"Permanently delete "+(product.name||"this product")+"?"
+);
+
+if(!confirmed)return;
+
+deleteButton.disabled=true;
+
+const {data,error}=await db.from("products")
+.delete()
+.eq("id",product.id)
+.select("id");
+
+if(error||!data?.length){
+showStatus(
+"Delete failed: "+
+(error?.message||"No row deleted."),
+true
+);
+deleteButton.disabled=false;
 return;
 }
 
-status('Product deleted.');
-await load(false);
-};
+showStatus("Product deleted successfully.");
+await loadProducts(false);
+});
 }
 
-$('reload').onclick=()=>load();
-
-db.auth.onAuthStateChange(()=>{
-setTimeout(authView,0);
+$("reload").addEventListener("click",()=>{
+loadProducts();
 });
 
-authView();
+db.auth.onAuthStateChange(()=>{
+setTimeout(updateAuth,0);
+});
+
+updateAuth();
 </script>
 </body>
 </html>
