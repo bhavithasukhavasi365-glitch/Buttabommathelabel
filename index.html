@@ -18,23 +18,20 @@
   --muted:#716a72;
   --line:#e9e3e7;
 }
-
-* {box-sizing:border-box}
-html {scroll-behavior:smooth}
-
-body {
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
   margin:0;
   background:var(--cream);
   color:var(--ink);
   font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
 }
+button,input{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+[hidden]{display:none!important}
 
-button,input {font:inherit}
-button {cursor:pointer}
-a {color:inherit;text-decoration:none}
-[hidden] {display:none!important}
-
-.topbar {
+.topbar{
   background:var(--purple);
   color:white;
   text-align:center;
@@ -42,16 +39,14 @@ a {color:inherit;text-decoration:none}
   font-size:12px;
   letter-spacing:.08em;
 }
-
-.nav {
+.nav{
   background:white;
   border-bottom:1px solid var(--line);
   position:sticky;
   top:0;
   z-index:20;
 }
-
-.nav-inner {
+.nav-inner{
   max-width:1200px;
   margin:auto;
   padding:13px 20px;
@@ -60,66 +55,56 @@ a {color:inherit;text-decoration:none}
   justify-content:space-between;
   gap:16px;
 }
-
-.brand {
+.brand{
   font:normal 21px Georgia,serif;
   color:var(--purple);
   white-space:nowrap;
 }
-
-.nav-links {
+.nav-links{
   display:flex;
   align-items:center;
   gap:23px;
   font-size:14px;
 }
-
-.nav-links a:hover {color:#67866a}
-
-.menu-button {
+.nav-links a:hover{color:#67866a}
+.menu-button{
   display:none;
   border:1px solid var(--line);
   background:white;
   border-radius:8px;
   padding:8px 12px;
 }
-
-.hero {
+.hero{
   background:linear-gradient(125deg,#dce9d5,#f7f2e9 68%,#e6dce7);
   text-align:center;
   padding:65px 20px 72px;
 }
-
-.hero-logo {
+.hero-logo{
   display:block;
   width:min(330px,80vw);
   height:auto;
   margin:0 auto 15px;
   mix-blend-mode:multiply;
 }
-
-.eyebrow {
+.eyebrow{
   font-size:12px;
   letter-spacing:.23em;
   text-transform:uppercase;
   color:#65516e;
 }
-
-.hero h1 {
+.hero h1{
   font:normal clamp(36px,6vw,65px) Georgia,serif;
   color:var(--purple);
   margin:15px auto;
   max-width:800px;
 }
-
-.hero p {
+.hero p{
   color:#655e67;
   max-width:570px;
   margin:0 auto 25px;
   line-height:1.7;
 }
-
-.primary-button {
+.primary-button{
   display:inline-block;
   background:var(--purple);
   color:white;
@@ -128,42 +113,34 @@ a {color:inherit;text-decoration:none}
   font-size:14px;
   border:0;
 }
-
-.primary-button:hover {background:#624575}
-
-.container {
+.primary-button:hover{background:#624575}
+.container{
   max-width:1200px;
   margin:auto;
   padding:0 20px;
 }
-
-.section {padding:55px 0 20px}
-
-.section-heading {
+.section{padding:55px 0 20px}
+.section-heading{
   text-align:center;
   margin-bottom:28px;
 }
-
-.section-heading h2 {
+.section-heading h2{
   font:normal clamp(28px,4vw,39px) Georgia,serif;
   color:var(--purple);
   margin:10px 0;
 }
-
-.section-heading p {
+.section-heading p{
   color:var(--muted);
   margin:0;
 }
-
-.search-panel {
+.search-panel{
   max-width:760px;
   margin:-30px auto 0;
   position:relative;
   z-index:2;
   padding:0 20px;
 }
-
-.search-wrap {
+.search-wrap{
   display:flex;
   background:white;
   padding:9px;
@@ -171,8 +148,7 @@ a {color:inherit;text-decoration:none}
   border-radius:12px;
   box-shadow:0 8px 28px #332b3b18;
 }
-
-.search-wrap input {
+.search-wrap input{
   flex:1;
   min-width:0;
   padding:12px;
@@ -181,22 +157,19 @@ a {color:inherit;text-decoration:none}
   background:transparent;
   font-size:15px;
 }
-
-.search-wrap button {
+.search-wrap button{
   background:var(--purple);
   color:white;
   border:0;
   border-radius:7px;
   padding:0 20px;
 }
-
-.category-grid {
+.category-grid{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:20px;
 }
-
-.category-card {
+.category-card{
   border:1px solid var(--line);
   background:white;
   border-radius:13px;
@@ -205,28 +178,24 @@ a {color:inherit;text-decoration:none}
   text-align:center;
   transition:transform .2s,box-shadow .2s;
 }
-
-.category-card:hover {
+.category-card:hover{
   transform:translateY(-3px);
   box-shadow:0 8px 24px #332b3b16;
 }
-
-.category-image {
+.category-image{
   height:260px;
   background:var(--sage-light);
   display:flex;
   align-items:center;
   justify-content:center;
 }
-
-.category-image img {
+.category-image img{
   display:block;
   width:100%;
   height:100%;
   object-fit:contain;
 }
-
-.category-placeholder {
+.category-placeholder{
   display:flex;
   align-items:center;
   justify-content:center;
@@ -238,30 +207,26 @@ a {color:inherit;text-decoration:none}
   padding:20px;
   text-align:center;
 }
-
-.category-title {
+.category-title{
   display:block;
   padding:17px 10px 5px;
   font:normal 22px Georgia,serif;
   color:var(--purple);
 }
-
-.category-count {
+.category-count{
   display:block;
   padding-bottom:18px;
   font-size:12px;
   color:var(--muted);
 }
-
-.filter-bar {
+.filter-bar{
   display:flex;
   justify-content:center;
   flex-wrap:wrap;
   gap:9px;
   margin:24px 0 25px;
 }
-
-.filter {
+.filter{
   border:1px solid #d8d0da;
   background:white;
   color:var(--purple);
@@ -269,14 +234,12 @@ a {color:inherit;text-decoration:none}
   border-radius:25px;
   font-size:13px;
 }
-
-.filter.active,.filter:hover {
+.filter.active,.filter:hover{
   background:var(--purple);
   color:white;
   border-color:var(--purple);
 }
-
-.collection-meta {
+.collection-meta{
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -286,60 +249,109 @@ a {color:inherit;text-decoration:none}
   color:var(--muted);
   font-size:14px;
 }
-
-.product-grid {
+.product-grid{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:24px;
   padding-bottom:45px;
 }
-
-.product {
+.product{
   background:white;
   border:1px solid var(--line);
   border-radius:13px;
   overflow:hidden;
   box-shadow:0 5px 20px #382b4010;
 }
-
-.photo {
+.photo{
   height:390px;
   background:#f4f1ed;
   display:flex;
   align-items:center;
   justify-content:center;
+  position:relative;
+  overflow:hidden;
   cursor:zoom-in;
 }
-
-.photo img {
+.photo img{
   width:100%;
   height:100%;
   object-fit:contain;
   display:block;
 }
-
-.details {padding:19px}
-
-.tag {
+.gallery-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:37px;
+  height:37px;
+  background:#413052cc;
+  color:white;
+  border:0;
+  border-radius:50%;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:19px;
+}
+.gallery-arrow.previous{left:8px}
+.gallery-arrow.next{right:8px}
+.gallery-arrow:hover{background:var(--purple)}
+.gallery-counter{
+  position:absolute;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#413052d9;
+  color:white;
+  border-radius:20px;
+  padding:5px 12px;
+  font-size:11px;
+  pointer-events:none;
+}
+.gallery-thumbs{
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  padding:10px;
+  background:white;
+  scrollbar-width:thin;
+}
+.gallery-thumbs button{
+  flex:0 0 55px;
+  height:65px;
+  border:2px solid transparent;
+  background:#f4f1ed;
+  border-radius:6px;
+  padding:2px;
+  overflow:hidden;
+}
+.gallery-thumbs button.active{
+  border-color:var(--purple);
+}
+.gallery-thumbs img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+.details{padding:19px}
+.tag{
   font-size:11px;
   letter-spacing:.13em;
   text-transform:uppercase;
   color:#776581;
 }
-
-.details h3 {
+.details h3{
   font:normal 23px Georgia,serif;
   color:var(--purple);
   margin:10px 0;
 }
-
-.price {
+.price{
   font-weight:700;
   font-size:22px;
   margin:8px 0 14px;
 }
-
-.meta {
+.meta{
   display:flex;
   gap:10px;
   justify-content:space-between;
@@ -348,20 +360,17 @@ a {color:inherit;text-decoration:none}
   font-size:13px;
   color:#62596a;
 }
-
-.stock {
+.stock{
   background:#e9f0e5;
   color:#365b3a;
   padding:6px 10px;
   border-radius:20px;
 }
-
-.stock.low {
+.stock.low{
   background:#fff0e5;
   color:#87502d;
 }
-
-.enquire {
+.enquire{
   display:block;
   margin-top:17px;
   text-align:center;
@@ -372,139 +381,163 @@ a {color:inherit;text-decoration:none}
   font-size:13px;
   font-weight:600;
 }
-
-.enquire:hover {background:var(--sage)}
-
-.enquire.disabled {
+.enquire:hover{background:var(--sage)}
+.enquire.disabled{
   opacity:.55;
   pointer-events:none;
 }
-
-.empty {
+.empty{
   text-align:center;
   padding:45px 15px;
   color:var(--muted);
 }
-
-.empty button {
-  background:var(--purple);
-  color:white;
-  border:0;
-  border-radius:6px;
-  padding:11px 20px;
-  margin-top:12px;
-}
-
-.about {
+.about{
   background:var(--sage-light);
   text-align:center;
   padding:55px 20px;
 }
-
-.about h2 {
+.about h2{
   font:normal 35px Georgia,serif;
   color:var(--purple);
 }
-
-.about p {
+.about p{
   max-width:660px;
   margin:15px auto;
   line-height:1.8;
   color:#60596a;
 }
-
-footer {
+footer{
   background:var(--purple);
   color:white;
   text-align:center;
   padding:35px 20px;
 }
+footer a{text-decoration:underline}
+footer p{font-size:13px;opacity:.85}
 
-footer a {text-decoration:underline}
-footer p {font-size:13px;opacity:.85}
-
-dialog {
+/* Full screen photo gallery */
+dialog{
   border:0;
   background:transparent;
-  padding:12px;
-  max-width:96vw;
-  max-height:96vh;
+  padding:0;
+  max-width:100vw;
+  max-height:100vh;
+  width:100vw;
+  height:100vh;
+  color:white;
 }
-
-dialog img {
+dialog[open]{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+dialog::backdrop{background:#000e}
+.viewer-image{
   max-width:90vw;
-  max-height:89vh;
+  max-height:85vh;
+  width:auto;
+  height:auto;
   object-fit:contain;
-  border-radius:8px;
 }
-
-dialog button {
+.viewer-close{
   position:fixed;
-  right:24px;
-  top:20px;
-  border:0;
-  border-radius:50%;
+  top:18px;
+  right:18px;
   background:white;
   color:var(--purple);
-  font-size:25px;
+  border:0;
+  border-radius:50%;
   width:44px;
   height:44px;
+  font-size:26px;
+  z-index:5;
+}
+.viewer-arrow{
+  position:fixed;
+  top:50%;
+  transform:translateY(-50%);
+  background:#ffffffd9;
+  color:var(--purple);
+  border:0;
+  border-radius:50%;
+  width:42px;
+  height:42px;
+  font-size:23px;
+  z-index:4;
+}
+.viewer-arrow.left{left:12px}
+.viewer-arrow.right{right:12px}
+.viewer-count{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  color:white;
+  background:#413052;
+  padding:8px 16px;
+  border-radius:20px;
+  font-size:13px;
 }
 
-dialog::backdrop {background:#000c}
-
-@media(max-width:800px) {
-  .product-grid {
+@media(max-width:800px){
+  .product-grid{
     grid-template-columns:repeat(2,minmax(0,1fr));
   }
-  .category-image {height:210px}
-  .nav-links {gap:12px}
+  .category-image{height:210px}
+  .nav-links{gap:12px}
 }
-
-@media(max-width:600px) {
-  .menu-button {display:block}
-  .nav-inner {flex-wrap:wrap}
-  .brand {font-size:18px}
-
-  .nav-links {
+@media(max-width:600px){
+  .menu-button{display:block}
+  .nav-inner{flex-wrap:wrap}
+  .brand{font-size:18px}
+  .nav-links{
     display:none;
     flex-basis:100%;
     flex-direction:column;
     align-items:stretch;
     gap:0;
   }
-
-  .nav-links.open {display:flex}
-
-  .nav-links a {
+  .nav-links.open{display:flex}
+  .nav-links a{
     padding:12px 5px;
     border-top:1px solid var(--line);
   }
-
-  .hero {padding:42px 16px 65px}
-  .category-grid {gap:10px}
-  .category-image {height:145px}
-  .category-title {font-size:16px;padding:12px 5px 4px}
-  .category-count {font-size:11px;padding-bottom:12px}
-
-  .product-grid {
+  .hero{padding:42px 16px 65px}
+  .category-grid{gap:10px}
+  .category-image{height:145px}
+  .category-title{
+    font-size:16px;
+    padding:12px 5px 4px;
+  }
+  .category-count{
+    font-size:11px;
+    padding-bottom:12px;
+  }
+  .product-grid{
     grid-template-columns:repeat(2,minmax(0,1fr));
     gap:12px;
   }
-
-  .photo {height:250px}
-  .details {padding:12px}
-  .details h3 {font-size:17px}
-  .price {font-size:18px}
-  .meta {font-size:11px}
-  .tag {font-size:10px}
-  .stock {padding:5px 7px}
-  .enquire {font-size:11px;padding:10px 6px}
+  .photo{height:250px}
+  .details{padding:12px}
+  .details h3{font-size:17px}
+  .price{font-size:18px}
+  .meta{font-size:11px}
+  .tag{font-size:10px}
+  .stock{padding:5px 7px}
+  .enquire{font-size:11px;padding:10px 6px}
+  .gallery-arrow{
+    width:29px;
+    height:29px;
+    font-size:15px;
+  }
+  .gallery-thumbs button{
+    flex-basis:42px;
+    height:50px;
+  }
 }
-
-@media(max-width:380px) {
-  .product-grid {grid-template-columns:1fr}
-  .photo {height:390px}
+@media(max-width:380px){
+  .product-grid{grid-template-columns:1fr}
+  .photo{height:390px}
 }
 </style>
 </head>
@@ -512,498 +545,616 @@ dialog::backdrop {background:#000c}
 <body>
 
 <div class="topbar">
-  BUTTABOMMA THE LABEL · INDIA & INTERNATIONAL
+BUTTABOMMA THE LABEL · INDIA & INTERNATIONAL
 </div>
 
 <nav class="nav" aria-label="Main navigation">
-  <div class="nav-inner">
-    <a href="#home" class="brand">Buttabomma The Label</a>
-
-    <button class="menu-button" id="menuButton"
-      aria-expanded="false" aria-controls="navLinks">
-      ☰ Menu
-    </button>
-
-    <div class="nav-links" id="navLinks">
-      <a href="#home">Home</a>
-      <a href="#categories">Categories</a>
-      <a href="#collections">Collections</a>
-      <a href="#about">About Us</a>
-      <a href="https://www.instagram.com/buttabomma_thelabel/"
-         target="_blank" rel="noopener">Instagram</a>
-    </div>
-  </div>
+<div class="nav-inner">
+<a href="#home" class="brand">Buttabomma The Label</a>
+<button class="menu-button" id="menuButton"
+aria-expanded="false" aria-controls="navLinks">
+☰ Menu
+</button>
+<div class="nav-links" id="navLinks">
+<a href="#home">Home</a>
+<a href="#categories">Categories</a>
+<a href="#collections">Collections</a>
+<a href="#about">About Us</a>
+<a href="https://www.instagram.com/buttabomma_thelabel/"
+target="_blank" rel="noopener">Instagram</a>
+</div>
+</div>
 </nav>
 
 <header class="hero" id="home">
-  <img class="hero-logo" src="logo.jpg"
-       alt="Buttabomma The Label logo">
-
-  <div class="eyebrow">Curated Boutique Fashion</div>
-  <h1>Discover Your Signature Style</h1>
-
-  <p>
-    Elegant silhouettes, beautiful fabrics and thoughtfully
-    selected styles for every special moment.
-  </p>
-
-  <a class="primary-button" href="#collections">
-    Explore Our Collection
-  </a>
+<img class="hero-logo" src="logo.jpg"
+alt="Buttabomma The Label logo">
+<div class="eyebrow">Curated Boutique Fashion</div>
+<h1>Discover Your Signature Style</h1>
+<p>
+Elegant silhouettes, beautiful fabrics and thoughtfully
+selected styles for every special moment.
+</p>
+<a class="primary-button" href="#collections">
+Explore Our Collection
+</a>
 </header>
 
 <div class="search-panel">
-  <div class="search-wrap" role="search">
-    <input id="searchInput" type="search"
-      placeholder="Search Georgette, Chiffon, Cotton..."
-      aria-label="Search our products">
-
-    <button id="searchButton" type="button">
-      Search
-    </button>
-  </div>
+<div class="search-wrap" role="search">
+<input id="searchInput" type="search"
+placeholder="Search Georgette, Chiffon, Cotton..."
+aria-label="Search our products">
+<button id="searchButton" type="button">Search</button>
+</div>
 </div>
 
 <section class="section" id="categories">
-  <div class="container">
-    <div class="section-heading">
-      <div class="eyebrow">Explore Our Styles</div>
-      <h2>Shop By Category</h2>
-      <p>Find your favourite boutique collection.</p>
-    </div>
-
-    <div class="category-grid" id="categoryGrid"></div>
-  </div>
+<div class="container">
+<div class="section-heading">
+<div class="eyebrow">Explore Our Styles</div>
+<h2>Shop By Category</h2>
+<p>Find your favourite boutique collection.</p>
+</div>
+<div class="category-grid" id="categoryGrid"></div>
+</div>
 </section>
 
 <section class="section" id="collections">
-  <div class="container">
-    <div class="section-heading">
-      <div class="eyebrow">Handpicked For You</div>
-      <h2>Our Collections</h2>
-      <p>Browse our latest available styles.</p>
-    </div>
-
-    <div class="filter-bar" id="filterBar"></div>
-
-    <div class="collection-meta">
-      <span id="count">Loading collection...</span>
-      <span>Tap any dress photo to view it fully</span>
-    </div>
-
-    <p id="message" class="empty" role="status">
-      Loading our latest styles...
-    </p>
-
-    <main class="product-grid" id="catalogue"></main>
-  </div>
+<div class="container">
+<div class="section-heading">
+<div class="eyebrow">Handpicked For You</div>
+<h2>Our Collections</h2>
+<p>Browse our latest available styles.</p>
+</div>
+<div class="filter-bar" id="filterBar"></div>
+<div class="collection-meta">
+<span id="count">Loading collection...</span>
+<span>Tap any dress photo to view it fully</span>
+</div>
+<p id="message" class="empty" role="status">
+Loading our latest styles...
+</p>
+<main class="product-grid" id="catalogue"></main>
+</div>
 </section>
 
 <section class="about" id="about">
-  <div class="eyebrow">A Little About Us</div>
-  <h2>Buttabomma The Label</h2>
-
-  <p>
-    Discover beautiful boutique styles made for your special
-    moments. Browse our collection, explore your favourite
-    designs, and connect with us on Instagram for enquiries.
-  </p>
-
-  <a class="primary-button"
-     href="https://www.instagram.com/buttabomma_thelabel/"
-     target="_blank" rel="noopener">
-    Connect With Us
-  </a>
+<div class="eyebrow">A Little About Us</div>
+<h2>Buttabomma The Label</h2>
+<p>
+Discover beautiful boutique styles made for your special
+moments. Browse our collection, explore your favourite
+designs, and connect with us on Instagram for enquiries.
+</p>
+<a class="primary-button"
+href="https://www.instagram.com/buttabomma_thelabel/"
+target="_blank" rel="noopener">
+Connect With Us
+</a>
 </section>
 
 <footer>
-  <strong>Buttabomma The Label</strong>
-  <p>Your Ultimate Style Stop</p>
-  <p>Shipping across India & internationally</p>
-
-  <a href="https://www.instagram.com/buttabomma_thelabel/"
-     target="_blank" rel="noopener">
-    @buttabomma_thelabel
-  </a>
-
-  <p>© <span id="year"></span> Buttabomma The Label</p>
+<strong>Buttabomma The Label</strong>
+<p>Your Ultimate Style Stop</p>
+<p>Shipping across India & internationally</p>
+<a href="https://www.instagram.com/buttabomma_thelabel/"
+target="_blank" rel="noopener">
+@buttabomma_thelabel
+</a>
+<p>© <span id="year"></span> Buttabomma The Label</p>
 </footer>
 
-<dialog id="viewer" aria-label="Product photo viewer">
-  <button id="closeViewer" aria-label="Close photo">×</button>
-  <img id="large" alt="Full-size dress photograph">
+<dialog id="viewer" aria-label="Product photo gallery">
+<button class="viewer-close" id="closeViewer"
+aria-label="Close photo">×</button>
+<button class="viewer-arrow left" id="viewerPrevious"
+aria-label="Previous photo">❮</button>
+<img class="viewer-image" id="large"
+alt="Full-size dress photograph">
+<button class="viewer-arrow right" id="viewerNext"
+aria-label="Next photo">❯</button>
+<div class="viewer-count" id="viewerCount"></div>
 </dialog>
 
 <script>
 const SUPABASE_URL =
-  "https://knzgtcrtxrilyqvxxjwz.supabase.co";
+"https://knzgtcrtxrilyqvxxjwz.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_q7yS4kyiNe527X7pRFOVjg_oc_wtYTO";
+"sb_publishable_q7yS4kyiNe527X7pRFOVjg_oc_wtYTO";
 
 const INSTAGRAM =
-  "https://www.instagram.com/buttabomma_thelabel/";
+"https://www.instagram.com/buttabomma_thelabel/";
 
 const CATEGORY_LIST = [
-  "Georgette",
-  "Pure Georgette",
-  "Pure Chiffon",
-  "Chiffon Georgette",
-  "Crush Chiffon",
-  "Mul Chanderi",
-  "Mul Cotton",
-  "Half Sarees",
-  "Designer Frocks"
+"Georgette",
+"Pure Georgette",
+"Pure Chiffon",
+"Chiffon Georgette",
+"Crush Chiffon",
+"Mul Chanderi",
+"Mul Cotton",
+"Half Sarees",
+"Designer Frocks"
 ];
 
-const root = document.getElementById("catalogue");
-const viewer = document.getElementById("viewer");
-const count = document.getElementById("count");
-const message = document.getElementById("message");
-const searchInput = document.getElementById("searchInput");
-const filterBar = document.getElementById("filterBar");
-const categoryGrid = document.getElementById("categoryGrid");
+const root=document.getElementById("catalogue");
+const viewer=document.getElementById("viewer");
+const count=document.getElementById("count");
+const message=document.getElementById("message");
+const searchInput=document.getElementById("searchInput");
+const filterBar=document.getElementById("filterBar");
+const categoryGrid=document.getElementById("categoryGrid");
 
-let allProducts = [];
-let activeCategory = "All";
+let allProducts=[];
+let activeCategory="All";
+let viewerPhotos=[];
+let viewerIndex=0;
 
-// Use the category saved in Supabase.
-function categoryOf(item) {
-  return CATEGORY_LIST.includes(item.category)
-    ? item.category
-    : "Uncategorised";
+function categoryOf(item){
+return CATEGORY_LIST.includes(item.category)
+?item.category:"Uncategorised";
 }
 
-// Always show all nine categories.
-function categories() {
-  return CATEGORY_LIST;
+function categories(){
+return CATEGORY_LIST;
 }
 
-function imageFor(item) {
-  return String(item.image || "").trim();
+function photosFor(item){
+const primary=String(item.image||"").trim();
+
+const extras=Array.isArray(item.images)
+?item.images.filter(x=>typeof x==="string"&&x.trim())
+:[];
+
+return [...new Set([primary,...extras].filter(Boolean))];
 }
 
-function selectCategory(category) {
-  activeCategory = category;
-  searchInput.value = "";
-  renderFilters();
-  renderProducts();
-
-  document.getElementById("collections")
-    .scrollIntoView({behavior:"smooth"});
+function imageFor(item){
+return photosFor(item)[0]||"";
 }
 
-function renderCategories() {
-  categoryGrid.replaceChildren();
+function selectCategory(category){
+activeCategory=category;
+searchInput.value="";
+renderFilters();
+renderProducts();
 
-  categories().forEach(category => {
-    const matching = allProducts.filter(
-      item => categoryOf(item) === category
-    );
-
-    const representative = matching.find(
-      item => imageFor(item)
-    );
-
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "category-card";
-
-    const imageBox = document.createElement("div");
-    imageBox.className = "category-image";
-
-    if (representative) {
-      const img = document.createElement("img");
-      img.src = imageFor(representative);
-      img.alt = category + " collection";
-      img.loading = "lazy";
-      imageBox.appendChild(img);
-    } else {
-      const placeholder = document.createElement("div");
-      placeholder.className = "category-placeholder";
-      placeholder.textContent = "Coming Soon";
-      imageBox.appendChild(placeholder);
-    }
-
-    const title = document.createElement("span");
-    title.className = "category-title";
-    title.textContent = category;
-
-    const total = document.createElement("span");
-    total.className = "category-count";
-
-    total.textContent = matching.length === 0
-      ? "Coming Soon"
-      : matching.length + (
-          matching.length === 1 ? " Style" : " Styles"
-        );
-
-    button.append(imageBox,title,total);
-
-    button.addEventListener("click",() => {
-      selectCategory(category);
-    });
-
-    categoryGrid.appendChild(button);
-  });
+document.getElementById("collections")
+.scrollIntoView({behavior:"smooth"});
 }
 
-function renderFilters() {
-  filterBar.replaceChildren();
+function renderCategories(){
+categoryGrid.replaceChildren();
 
-  ["All",...categories()].forEach(category => {
-    const button = document.createElement("button");
-    button.type = "button";
+categories().forEach(category=>{
+const matching=allProducts.filter(
+item=>categoryOf(item)===category
+);
 
-    button.className =
-      "filter" + (activeCategory === category ? " active" : "");
+const representative=matching.find(
+item=>imageFor(item)
+);
 
-    button.textContent = category;
+const button=document.createElement("button");
+button.type="button";
+button.className="category-card";
 
-    button.setAttribute(
-      "aria-pressed",
-      String(activeCategory === category)
-    );
+const imageBox=document.createElement("div");
+imageBox.className="category-image";
 
-    button.addEventListener("click",() => {
-      activeCategory = category;
-      renderFilters();
-      renderProducts();
-    });
-
-    filterBar.appendChild(button);
-  });
+if(representative){
+const img=document.createElement("img");
+img.src=imageFor(representative);
+img.alt=category+" collection";
+img.loading="lazy";
+imageBox.appendChild(img);
+}else{
+const placeholder=document.createElement("div");
+placeholder.className="category-placeholder";
+placeholder.textContent="Coming Soon";
+imageBox.appendChild(placeholder);
 }
 
-function makeProductCard(item) {
-  const card = document.createElement("article");
-  card.className = "product";
+const title=document.createElement("span");
+title.className="category-title";
+title.textContent=category;
 
-  const photo = document.createElement("div");
-  photo.className = "photo";
-  photo.setAttribute("role","button");
-  photo.setAttribute("tabindex","0");
+const total=document.createElement("span");
+total.className="category-count";
+total.textContent=matching.length===0
+?"Coming Soon"
+:matching.length+(matching.length===1?" Style":" Styles");
 
-  photo.setAttribute(
-    "aria-label",
-    "Enlarge photo of " + (item.name || "dress")
-  );
-
-  const img = document.createElement("img");
-  img.src = imageFor(item);
-  img.alt = (item.name || "Dress") + " full dress photograph";
-  img.loading = "lazy";
-  photo.appendChild(img);
-
-  const details = document.createElement("div");
-  details.className = "details";
-
-  const tag = document.createElement("span");
-  tag.className = "tag";
-  tag.textContent = categoryOf(item);
-
-  const name = document.createElement("h3");
-  name.textContent = item.name || "Boutique Style";
-
-  const price = document.createElement("div");
-  price.className = "price";
-  price.textContent =
-    "₹" + Number(item.price || 0).toLocaleString("en-IN");
-
-  const meta = document.createElement("div");
-  meta.className = "meta";
-
-  const sizes = document.createElement("span");
-  sizes.textContent =
-    "Sizes: " + (item.sizes || "Contact us");
-
-  const stock = document.createElement("span");
-  const quantity = Number(item.stock || 0);
-
-  stock.className =
-    "stock" + (quantity <= 1 ? " low" : "");
-
-  stock.textContent = quantity === 0
-    ? "Out of stock"
-    : quantity + (
-        quantity === 1
-          ? " piece available"
-          : " pieces available"
-      );
-
-  meta.append(sizes,stock);
-  details.append(tag,name,price,meta);
-
-  const enquire = document.createElement("a");
-  enquire.className = "enquire";
-
-  enquire.textContent = quantity > 0
-    ? "Enquire on Instagram"
-    : "Currently Unavailable";
-
-  if (quantity > 0) {
-    enquire.href = INSTAGRAM;
-    enquire.target = "_blank";
-    enquire.rel = "noopener";
-
-    enquire.setAttribute(
-      "aria-label",
-      "Enquire about " + (item.name || "this dress")
-    );
-  } else {
-    enquire.classList.add("disabled");
-    enquire.setAttribute("aria-disabled","true");
-  }
-
-  details.appendChild(enquire);
-  card.append(photo,details);
-
-  const open = () => {
-    if (!imageFor(item)) return;
-
-    document.getElementById("large").src =
-      imageFor(item);
-
-    viewer.showModal();
-  };
-
-  photo.addEventListener("click",open);
-
-  photo.addEventListener("keydown",e => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      open();
-    }
-  });
-
-  return card;
+button.append(imageBox,title,total);
+button.addEventListener("click",()=>selectCategory(category));
+categoryGrid.appendChild(button);
+});
 }
 
-function renderProducts() {
-  const query =
-    searchInput.value.trim().toLowerCase();
+function renderFilters(){
+filterBar.replaceChildren();
 
-  const filtered = allProducts.filter(item => {
-    const matchesCategory =
-      activeCategory === "All" ||
-      categoryOf(item) === activeCategory;
+["All",...categories()].forEach(category=>{
+const button=document.createElement("button");
+button.type="button";
+button.className="filter"+
+(activeCategory===category?" active":"");
+button.textContent=category;
+button.setAttribute("aria-pressed",
+String(activeCategory===category));
 
-    const searchable = [
-      item.name,
-      item.sizes,
-      item.category
-    ].filter(Boolean).join(" ").toLowerCase();
+button.addEventListener("click",()=>{
+activeCategory=category;
+renderFilters();
+renderProducts();
+});
 
-    return matchesCategory && searchable.includes(query);
-  });
-
-  root.replaceChildren();
-
-  filtered.forEach(item => {
-    root.appendChild(makeProductCard(item));
-  });
-
-  count.textContent =
-    filtered.length + (
-      filtered.length === 1 ? " style" : " styles"
-    ) + " found";
-
-  message.hidden = filtered.length > 0;
-
-  if (filtered.length === 0) {
-    const isEmptyCategory =
-      activeCategory !== "All" &&
-      !query &&
-      !allProducts.some(
-        item => categoryOf(item) === activeCategory
-      );
-
-    message.textContent = isEmptyCategory
-      ? "New styles coming soon in " +
-        activeCategory + "!"
-      : allProducts.length === 0
-        ? "New styles are coming soon."
-        : "No matching styles found. Try another search or category.";
-  }
+filterBar.appendChild(button);
+});
 }
 
-async function loadProducts() {
-  try {
-    const response = await fetch(
-      SUPABASE_URL +
-      "/rest/v1/products?select=id,name,price,sizes,stock,image,category&status=eq.published&order=id.asc",
-      {
-        headers:{"apikey":SUPABASE_KEY},
-        cache:"no-store"
-      }
-    );
+function openViewer(photos,index=0){
+if(!photos.length)return;
+viewerPhotos=photos;
+viewerIndex=index;
+updateViewer();
+viewer.showModal();
+}
 
-    if (!response.ok) {
-      throw new Error("Supabase returned " + response.status);
-    }
+function updateViewer(){
+if(!viewerPhotos.length)return;
 
-    const products = await response.json();
+document.getElementById("large").src=
+viewerPhotos[viewerIndex];
 
-    if (!Array.isArray(products)) {
-      throw new Error("Unexpected product data");
-    }
+document.getElementById("viewerCount").textContent=
+(viewerIndex+1)+" / "+viewerPhotos.length;
 
-    allProducts = products;
+const multiple=viewerPhotos.length>1;
+document.getElementById("viewerPrevious").hidden=!multiple;
+document.getElementById("viewerNext").hidden=!multiple;
+}
 
-    renderCategories();
-    renderFilters();
-    renderProducts();
+function moveViewer(direction){
+if(!viewerPhotos.length)return;
 
-  } catch(error) {
-    console.error("Catalogue loading error:",error);
-    count.textContent = "Collection unavailable";
-    message.hidden = false;
-    message.textContent =
-      "Unable to load our collection right now. Please try again shortly.";
-  }
+viewerIndex=(
+viewerIndex+direction+viewerPhotos.length
+)%viewerPhotos.length;
+
+updateViewer();
+}
+
+function makeProductCard(item){
+const card=document.createElement("article");
+card.className="product";
+
+const gallery=photosFor(item);
+let photoIndex=0;
+
+const photo=document.createElement("div");
+photo.className="photo";
+photo.setAttribute("role","button");
+photo.setAttribute("tabindex","0");
+photo.setAttribute("aria-label",
+"Enlarge photo of "+(item.name||"dress"));
+
+const img=document.createElement("img");
+img.src=gallery[0]||"";
+img.alt=(item.name||"Dress")+" photograph";
+img.loading="lazy";
+photo.appendChild(img);
+
+let thumbnailButtons=[];
+let counter=null;
+
+function showPhoto(index){
+if(!gallery.length)return;
+
+photoIndex=(index+gallery.length)%gallery.length;
+img.src=gallery[photoIndex];
+
+if(counter){
+counter.textContent=(photoIndex+1)+" / "+gallery.length;
+}
+
+thumbnailButtons.forEach((button,i)=>{
+button.classList.toggle("active",i===photoIndex);
+button.setAttribute("aria-pressed",String(i===photoIndex));
+});
+}
+
+const wrapper=document.createElement("div");
+wrapper.appendChild(photo);
+
+if(gallery.length>1){
+const previous=document.createElement("button");
+previous.type="button";
+previous.className="gallery-arrow previous";
+previous.textContent="❮";
+previous.setAttribute("aria-label","Previous product photo");
+
+const next=document.createElement("button");
+next.type="button";
+next.className="gallery-arrow next";
+next.textContent="❯";
+next.setAttribute("aria-label","Next product photo");
+
+previous.addEventListener("click",e=>{
+e.stopPropagation();
+showPhoto(photoIndex-1);
+});
+
+next.addEventListener("click",e=>{
+e.stopPropagation();
+showPhoto(photoIndex+1);
+});
+
+counter=document.createElement("div");
+counter.className="gallery-counter";
+
+photo.append(previous,next,counter);
+
+const thumbs=document.createElement("div");
+thumbs.className="gallery-thumbs";
+
+gallery.forEach((url,i)=>{
+const button=document.createElement("button");
+button.type="button";
+button.setAttribute("aria-label","View photo "+(i+1));
+
+const thumb=document.createElement("img");
+thumb.src=url;
+thumb.alt="Photo "+(i+1);
+thumb.loading="lazy";
+
+button.appendChild(thumb);
+button.addEventListener("click",()=>showPhoto(i));
+
+thumbnailButtons.push(button);
+thumbs.appendChild(button);
+});
+
+wrapper.appendChild(thumbs);
+showPhoto(0);
+
+let touchStartX=0;
+let swipeDetected=false;
+
+photo.addEventListener("touchstart",e=>{
+touchStartX=e.changedTouches[0].screenX;
+swipeDetected=false;
+},{passive:true});
+
+photo.addEventListener("touchend",e=>{
+const difference=
+e.changedTouches[0].screenX-touchStartX;
+
+if(Math.abs(difference)>40){
+swipeDetected=true;
+showPhoto(photoIndex+(difference<0?1:-1));
+}
+},{passive:true});
+
+photo.addEventListener("click",()=>{
+if(swipeDetected){
+swipeDetected=false;
+return;
+}
+openViewer(gallery,photoIndex);
+});
+
+}else{
+photo.addEventListener("click",()=>{
+openViewer(gallery,photoIndex);
+});
+}
+
+photo.addEventListener("keydown",e=>{
+if(e.target!==photo)return;
+if(e.key==="Enter"||e.key===" "){
+e.preventDefault();
+openViewer(gallery,photoIndex);
+}
+});
+
+const details=document.createElement("div");
+details.className="details";
+
+const tag=document.createElement("span");
+tag.className="tag";
+tag.textContent=categoryOf(item);
+
+const name=document.createElement("h3");
+name.textContent=item.name||"Boutique Style";
+
+const price=document.createElement("div");
+price.className="price";
+price.textContent=
+"₹"+Number(item.price||0).toLocaleString("en-IN");
+
+const meta=document.createElement("div");
+meta.className="meta";
+
+const sizes=document.createElement("span");
+sizes.textContent="Sizes: "+(item.sizes||"Contact us");
+
+const stock=document.createElement("span");
+const quantity=Number(item.stock||0);
+
+stock.className="stock"+(quantity<=1?" low":"");
+stock.textContent=quantity===0
+?"Out of stock"
+:quantity+(quantity===1
+?" piece available":" pieces available");
+
+meta.append(sizes,stock);
+details.append(tag,name,price,meta);
+
+const enquire=document.createElement("a");
+enquire.className="enquire";
+enquire.textContent=quantity>0
+?"Enquire on Instagram":"Currently Unavailable";
+
+if(quantity>0){
+enquire.href=INSTAGRAM;
+enquire.target="_blank";
+enquire.rel="noopener";
+enquire.setAttribute("aria-label",
+"Enquire about "+(item.name||"this dress"));
+}else{
+enquire.classList.add("disabled");
+enquire.setAttribute("aria-disabled","true");
+}
+
+details.appendChild(enquire);
+card.append(wrapper,details);
+
+return card;
+}
+
+function renderProducts(){
+const query=searchInput.value.trim().toLowerCase();
+
+const filtered=allProducts.filter(item=>{
+const matchesCategory=
+activeCategory==="All"||
+categoryOf(item)===activeCategory;
+
+const searchable=[
+item.name,item.sizes,item.category
+].filter(Boolean).join(" ").toLowerCase();
+
+return matchesCategory&&searchable.includes(query);
+});
+
+root.replaceChildren();
+
+filtered.forEach(item=>{
+root.appendChild(makeProductCard(item));
+});
+
+count.textContent=filtered.length+
+(filtered.length===1?" style":" styles")+" found";
+
+message.hidden=filtered.length>0;
+
+if(filtered.length===0){
+const isEmptyCategory=
+activeCategory!=="All"&&!query&&
+!allProducts.some(
+item=>categoryOf(item)===activeCategory
+);
+
+message.textContent=isEmptyCategory
+?"New styles coming soon in "+activeCategory+"!"
+:allProducts.length===0
+?"New styles are coming soon."
+:"No matching styles found. Try another search or category.";
+}
+}
+
+async function loadProducts(){
+try{
+const response=await fetch(
+SUPABASE_URL+
+"/rest/v1/products?select=id,name,price,sizes,stock,image,images,category&status=eq.published&order=id.asc",
+{
+headers:{"apikey":SUPABASE_KEY},
+cache:"no-store"
+}
+);
+
+if(!response.ok){
+throw new Error("Supabase returned "+response.status);
+}
+
+const products=await response.json();
+
+if(!Array.isArray(products)){
+throw new Error("Unexpected product data");
+}
+
+allProducts=products;
+renderCategories();
+renderFilters();
+renderProducts();
+
+}catch(error){
+console.error("Catalogue loading error:",error);
+count.textContent="Collection unavailable";
+message.hidden=false;
+message.textContent=
+"Unable to load our collection right now. Please try again shortly.";
+}
 }
 
 searchInput.addEventListener("input",renderProducts);
 
 document.getElementById("searchButton")
-  .addEventListener("click",() => {
-    document.getElementById("collections")
-      .scrollIntoView({behavior:"smooth"});
-
-    renderProducts();
-  });
+.addEventListener("click",()=>{
+document.getElementById("collections")
+.scrollIntoView({behavior:"smooth"});
+renderProducts();
+});
 
 document.getElementById("menuButton")
-  .addEventListener("click",() => {
-    const links = document.getElementById("navLinks");
-    const isOpen = links.classList.toggle("open");
+.addEventListener("click",()=>{
+const links=document.getElementById("navLinks");
+const isOpen=links.classList.toggle("open");
+document.getElementById("menuButton")
+.setAttribute("aria-expanded",String(isOpen));
+});
 
-    document.getElementById("menuButton")
-      .setAttribute("aria-expanded",String(isOpen));
-  });
-
-document.querySelectorAll(".nav-links a").forEach(link => {
-  link.addEventListener("click",() => {
-    document.getElementById("navLinks")
-      .classList.remove("open");
-
-    document.getElementById("menuButton")
-      .setAttribute("aria-expanded","false");
-  });
+document.querySelectorAll(".nav-links a").forEach(link=>{
+link.addEventListener("click",()=>{
+document.getElementById("navLinks")
+.classList.remove("open");
+document.getElementById("menuButton")
+.setAttribute("aria-expanded","false");
+});
 });
 
 document.getElementById("closeViewer")
-  .addEventListener("click",() => viewer.close());
+.addEventListener("click",()=>viewer.close());
 
-viewer.addEventListener("click",e => {
-  if (e.target === viewer) viewer.close();
+document.getElementById("viewerPrevious")
+.addEventListener("click",()=>moveViewer(-1));
+
+document.getElementById("viewerNext")
+.addEventListener("click",()=>moveViewer(1));
+
+viewer.addEventListener("click",e=>{
+if(e.target===viewer)viewer.close();
 });
 
-document.getElementById("year").textContent =
-  new Date().getFullYear();
+document.addEventListener("keydown",e=>{
+if(!viewer.open)return;
+if(e.key==="ArrowLeft")moveViewer(-1);
+if(e.key==="ArrowRight")moveViewer(1);
+});
+
+let viewerTouchStart=0;
+
+viewer.addEventListener("touchstart",e=>{
+viewerTouchStart=e.changedTouches[0].screenX;
+},{passive:true});
+
+viewer.addEventListener("touchend",e=>{
+const difference=
+e.changedTouches[0].screenX-viewerTouchStart;
+
+if(Math.abs(difference)>40){
+moveViewer(difference<0?1:-1);
+}
+},{passive:true});
+
+document.getElementById("year").textContent=
+new Date().getFullYear();
 
 loadProducts();
 </script>
-
 </body>
 </html>
