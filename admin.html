@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +25,7 @@ h1{
 main{
   max-width:1100px;
   margin:auto;
-  padding:22px;
+  padding:20px;
 }
 button{
   background:#413052;
@@ -35,67 +36,69 @@ button{
   cursor:pointer;
   margin:5px 5px 5px 0;
 }
-button:disabled{opacity:.5;cursor:not-allowed}
-input{
-  padding:10px;
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+input,select{
+  width:100%;
+  padding:11px;
   border:1px solid #ccc;
-  border-radius:6px;
-  width:100%;
-  margin:6px 0 12px;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:18px;
-}
-.card{
+  border-radius:7px;
+  margin:6px 0 14px;
   background:white;
-  padding:15px;
-  border-radius:12px;
-  box-shadow:0 2px 8px #0001;
+  font:inherit;
 }
-.card img{
-  width:100%;
-  height:270px;
-  object-fit:contain;
-  background:#f8f6f3;
-}
-.notice{
-  background:#fff1d6;
-  padding:15px;
-  border-radius:10px;
-  margin:15px 0;
-  line-height:1.6;
-}
-.hidden{display:none}
-.danger{background:#a33b46}
 label{
   display:block;
   font-size:13px;
   font-weight:bold;
 }
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
+.card{
+  background:white;
+  padding:18px;
+  border-radius:12px;
+  box-shadow:0 2px 10px #0001;
+}
+.card img{
+  width:100%;
+  height:300px;
+  object-fit:contain;
+  background:#f5f2ee;
+  border-radius:8px;
+}
+.hidden{display:none!important}
+.danger{background:#a33b46}
+.save{background:#286b3b}
+.notice{
+  background:#e8f2e5;
+  padding:15px;
+  border-radius:10px;
+  margin:18px 0;
+  line-height:1.6;
+}
 #status{
+  padding:12px;
   margin:15px 0;
-  padding:10px;
   overflow-wrap:anywhere;
 }
 .error{color:#a33b46}
 .success{color:#286b3b}
-.upload-button{background:#54765b}
-.publish-button{background:#286b3b}
-.draft-button{background:#87623c}
-.status-pill{display:inline-block;padding:7px 11px;border-radius:20px;font-size:12px;font-weight:bold;margin:0 0 12px}
-.status-pill.draft{background:#fff1d6;color:#795323}
-.status-pill.published{background:#e4f3e7;color:#286b3b}
-select{padding:10px;border:1px solid #ccc;border-radius:6px;width:100%;margin:6px 0 12px;background:white}
+.actions{margin:20px 0}
 a{color:#413052}
 </style>
 </head>
 
 <body>
+
 <header>
 <h1>Buttabomma The Label</h1>
-<p>Private Product Management Dashboard</p>
+<p>Easy Product Management</p>
 </header>
 
 <main>
@@ -109,7 +112,7 @@ a{color:#413052}
 <section id="adminSection" class="hidden">
 
 <div class="card">
-<h2>Welcome to Buttabomma Admin</h2>
+<h2>Welcome to Buttabomma Admin ❤️</h2>
 <p id="adminEmail"></p>
 <button id="logoutButton">Sign Out</button>
 <a href="/" target="_blank" rel="noopener">
@@ -118,23 +121,27 @@ View Customer Catalogue
 </div>
 
 <div class="notice">
-Edit product details and click Save Changes. New products start as private Drafts. After saving a complete product, click Publish Product to show it to customers. Use Move to Draft to hide a published product.
-
-To add a new photo, click Choose File and then
-Upload Photo. The image will be stored in Supabase.
-
-After uploading, click Save Changes to connect
-the photo to your product.
-
-Existing photos will continue working.
+<strong>Easy Product Upload</strong>
+<p>
+Click Add Product, enter details, choose your photo
+and click Save & Publish.
+</p>
+<p>
+Your photo uploads automatically and the product
+appears on the customer website.
+</p>
 </div>
 
 <div class="actions">
-<button id="addButton">+ Add Product</button>
-<button id="reloadButton">Reload Products</button>
+<button id="addButton">+ Add New Product</button>
+<button id="reloadButton">Refresh Products</button>
 </div>
 
+<div id="newProductArea"></div>
+
+<h2>Manage Existing Products</h2>
 <div id="products" class="grid"></div>
+
 </section>
 
 <p id="status" role="status">Checking login...</p>
@@ -145,19 +152,26 @@ Existing photos will continue working.
 
 <script>
 const SUPABASE_URL =
-  "https://knzgtcrtxrilyqvxxjwz.supabase.co";
+"https://knzgtcrtxrilyqvxxjwz.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_q7yS4kyiNe527X7pRFOVjg_oc_wtYTO";
+"sb_publishable_q7yS4kyiNe527X7pRFOVjg_oc_wtYTO";
 
 const ADMIN_UID =
-  "b7279374-c934-498f-b36d-278ed441e096";
+"b7279374-c934-498f-b36d-278ed441e096";
 
 const BUCKET = "product-images";
+
 const CATEGORY_LIST = [
-  "Georgette", "Pure Georgette", "Pure Chiffon",
-  "Chiffon Georgette", "Crush Chiffon", "Mul Chanderi",
-  "Mul Cotton", "Half Sarees", "Designer Frocks"
+  "Georgette",
+  "Pure Georgette",
+  "Pure Chiffon",
+  "Chiffon Georgette",
+  "Crush Chiffon",
+  "Mul Chanderi",
+  "Mul Cotton",
+  "Half Sarees",
+  "Designer Frocks"
 ];
 
 const client = window.supabase.createClient(
@@ -166,457 +180,455 @@ const client = window.supabase.createClient(
 );
 
 const loginSection =
-  document.getElementById("loginSection");
+document.getElementById("loginSection");
+
 const adminSection =
-  document.getElementById("adminSection");
+document.getElementById("adminSection");
+
 const productsArea =
-  document.getElementById("products");
+document.getElementById("products");
+
+const newProductArea =
+document.getElementById("newProductArea");
+
 const statusBox =
-  document.getElementById("status");
+document.getElementById("status");
 
 let currentUser = null;
 let loginVersion = 0;
 
-function setStatus(message, error = false) {
-  statusBox.textContent = message;
-  statusBox.className = error ? "error" : "success";
+function setStatus(message,error=false){
+  statusBox.textContent=message;
+  statusBox.className=error?"error":"success";
 }
 
-function isAdmin(user) {
-  return !!user && user.id === ADMIN_UID;
+function isAdmin(user){
+  return !!user && user.id===ADMIN_UID;
 }
 
-function showUser(user) {
-  currentUser = user;
+function showUser(user){
+  currentUser=user;
   loginVersion++;
-  const version = loginVersion;
+  const version=loginVersion;
 
-  if (isAdmin(user)) {
+  if(isAdmin(user)){
     loginSection.classList.add("hidden");
     adminSection.classList.remove("hidden");
-
     document.getElementById("adminEmail")
-      .textContent = user.email || "";
-
+      .textContent=user.email||"";
     loadProducts(version);
-  } else {
+  }else{
     adminSection.classList.add("hidden");
     loginSection.classList.remove("hidden");
     productsArea.replaceChildren();
+    newProductArea.replaceChildren();
 
     setStatus(
-      user
-        ? "This account is not authorized."
-        : "Please sign in to continue.",
+      user?"This account is not authorized.":
+      "Please sign in to continue.",
       !!user
     );
   }
 }
 
 document.getElementById("loginButton")
-  .addEventListener("click", async () => {
-    const { error } =
-      await client.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo:
-            "https://buttabommathelabel.netlify.app/admin.html"
-        }
-      });
-
-    if (error) setStatus(error.message, true);
-  });
-
-document.getElementById("logoutButton")
-  .addEventListener("click", async () => {
-    const { error } = await client.auth.signOut();
-
-    if (error) {
-      setStatus(error.message, true);
-    } else {
-      showUser(null);
+.addEventListener("click",async()=>{
+  const {error}=await client.auth.signInWithOAuth({
+    provider:"google",
+    options:{
+      redirectTo:
+      "https://buttabommathelabel.netlify.app/admin.html"
     }
   });
+  if(error)setStatus(error.message,true);
+});
 
-async function checkLogin() {
-  const { data, error } = await client.auth.getUser();
+document.getElementById("logoutButton")
+.addEventListener("click",async()=>{
+  const {error}=await client.auth.signOut();
+  if(error){
+    setStatus(error.message,true);
+  }else{
+    showUser(null);
+  }
+});
 
-  if (error && error.name !== "AuthSessionMissingError") {
-    setStatus(error.message, true);
+async function checkLogin(){
+  const {data,error}=await client.auth.getUser();
+
+  if(error && error.name!=="AuthSessionMissingError"){
+    setStatus(error.message,true);
   }
 
-  showUser(data?.user || null);
+  showUser(data?.user||null);
 }
 
-async function loadProducts(version = loginVersion) {
-  if (!isAdmin(currentUser)) return;
+async function loadProducts(version=loginVersion){
+  if(!isAdmin(currentUser))return;
 
   setStatus("Loading products...");
 
-  const { data, error } = await client
+  const {data,error}=await client
     .from("products")
     .select("id,name,price,sizes,stock,image,category,status")
-    .order("id", { ascending: true });
+    .order("id",{ascending:true});
 
-  if (version !== loginVersion || !isAdmin(currentUser)) {
+  if(version!==loginVersion || !isAdmin(currentUser)){
     return;
   }
 
-  if (error) {
-    setStatus(error.message, true);
+  if(error){
+    setStatus(error.message,true);
     return;
   }
 
   productsArea.replaceChildren();
 
-  (data || []).forEach(product => {
-    renderProduct(product);
+  (data||[]).forEach(product=>{
+    renderProduct(product,productsArea);
   });
 
-  setStatus("Loaded " + data.length + " products.");
+  setStatus("Loaded "+data.length+" products.");
 }
 
-function createField(labelText, value, type = "text") {
-  const label = document.createElement("label");
-  label.textContent = labelText;
+function createField(labelText,value,type="text"){
+  const label=document.createElement("label");
+  label.textContent=labelText;
 
-  const input = document.createElement("input");
-  input.type = type;
-  input.value = value ?? "";
+  const input=document.createElement("input");
+  input.type=type;
+  input.value=value??"";
 
-  if (type === "number") {
-    input.min = "0";
-    input.step = labelText === "Price" ? "0.01" : "1";
+  if(type==="number"){
+    input.min="0";
+    input.step=labelText==="Price"?"0.01":"1";
   }
 
   label.appendChild(input);
-  return { label, input };
+  return {label,input};
 }
 
-function createCategoryField(value) {
-  const label = document.createElement("label");
-  label.textContent = "Product Category";
-  const select = document.createElement("select");
-  const blank = document.createElement("option");
-  blank.value = "";
-  blank.textContent = "-- Select Category --";
+function createCategoryField(value){
+  const label=document.createElement("label");
+  label.textContent="Category";
+
+  const select=document.createElement("select");
+
+  const blank=document.createElement("option");
+  blank.value="";
+  blank.textContent="Select Category";
   select.appendChild(blank);
-  CATEGORY_LIST.forEach(category => {
-    const option = document.createElement("option");
-    option.value = category;
-    option.textContent = category;
+
+  CATEGORY_LIST.forEach(category=>{
+    const option=document.createElement("option");
+    option.value=category;
+    option.textContent=category;
     select.appendChild(option);
   });
-  select.value = CATEGORY_LIST.includes(value) ? value : "";
+
+  select.value=CATEGORY_LIST.includes(value)?value:"";
   label.appendChild(select);
-  return { label, input: select };
+
+  return {label,input:select};
 }
 
-function renderProduct(product) {
-  const card = document.createElement("div");
-  card.className = "card";
+function resolveImage(value){
+  const path=String(value||"").trim();
 
-  const img = document.createElement("img");
-  img.src = product.image || "";
-  img.alt = product.name || "Product";
+  if(!path)return "";
+
+  if(/^https?:\/\//i.test(path)){
+    return path;
+  }
+
+  return path;
+}
+
+async function uploadPhoto(file){
+  if(!isAdmin(currentUser)){
+    throw new Error("Admin login required.");
+  }
+
+  const allowed={
+    "image/jpeg":"jpg",
+    "image/png":"png",
+    "image/webp":"webp"
+  };
+
+  const extension=allowed[file.type];
+
+  if(!extension){
+    throw new Error("Please choose JPG, PNG or WebP.");
+  }
+
+  if(file.size>5*1024*1024){
+    throw new Error("Photo must be under 5 MB.");
+  }
+
+  const filename=
+    crypto.randomUUID()+"."+extension;
+
+  const {data,error}=await client.storage
+    .from(BUCKET)
+    .upload(filename,file,{
+      contentType:file.type,
+      upsert:false
+    });
+
+  if(error){
+    throw new Error("Photo upload failed: "+error.message);
+  }
+
+  const {data:urlData}=client.storage
+    .from(BUCKET)
+    .getPublicUrl(data.path);
+
+  return urlData.publicUrl;
+}
+
+function renderProduct(product,container){
+  const isNew=!product;
+
+  product=product||{
+    name:"",
+    price:"",
+    sizes:"XS-XXL",
+    stock:"",
+    image:"",
+    category:""
+  };
+
+  const card=document.createElement("div");
+  card.className="card";
+
+  const heading=document.createElement("h3");
+  heading.textContent=isNew?
+    "Add New Product":"Edit Product";
+  card.appendChild(heading);
+
+  const img=document.createElement("img");
+  img.alt="Product preview";
+
+  const imageValue=resolveImage(product.image);
+  if(imageValue)img.src=imageValue;
+
   card.appendChild(img);
 
-  const statusPill = document.createElement("div");
-  const isPublished = product.status === "published";
-  statusPill.className = "status-pill " + (isPublished ? "published" : "draft");
-  statusPill.textContent = isPublished ? "Published" : "Draft — Private";
-  card.appendChild(statusPill);
+  const name=createField("Product Name",product.name);
+  const category=createCategoryField(product.category);
+  const price=createField("Price",product.price,"number");
+  const sizes=createField("Sizes",product.sizes);
+  const stock=createField("Stock",product.stock,"number");
 
-  const name = createField("Product Name", product.name);
-  const category = createCategoryField(product.category);
-  const price = createField("Price", product.price, "number");
-  const sizes = createField("Sizes", product.sizes);
-  const stock = createField("Stock", product.stock, "number");
-  const image = createField("Image URL or Filename", product.image);
-
-  [name, category, price, sizes, stock, image].forEach(field => {
+  [
+    name,category,price,sizes,stock
+  ].forEach(field=>{
     card.appendChild(field.label);
   });
 
-  image.input.addEventListener("change", () => {
-    img.src = image.input.value.trim();
-  });
+  const photoLabel=document.createElement("label");
+  photoLabel.textContent="Choose Product Photo";
 
-  // PHOTO UPLOAD
-  const photoLabel = document.createElement("label");
-  photoLabel.textContent = "Choose New Product Photo";
+  const photoInput=document.createElement("input");
+  photoInput.type="file";
+  photoInput.accept="image/jpeg,image/png,image/webp";
 
-  const photoInput = document.createElement("input");
-  photoInput.type = "file";
-  photoInput.accept = "image/jpeg,image/png,image/webp";
   photoLabel.appendChild(photoInput);
   card.appendChild(photoLabel);
 
-  const uploadButton = document.createElement("button");
-  uploadButton.textContent = "Upload Photo";
-  uploadButton.className = "upload-button";
+  let previewUrl="";
 
-  uploadButton.addEventListener("click", async () => {
-    if (!isAdmin(currentUser)) return;
-
-    const file = photoInput.files[0];
-
-    if (!file) {
-      setStatus("Please choose a photo first.", true);
-      return;
+  photoInput.addEventListener("change",()=>{
+    if(previewUrl){
+      URL.revokeObjectURL(previewUrl);
+      previewUrl="";
     }
 
-    const allowed = {
-      "image/jpeg": "jpg",
-      "image/png": "png",
-      "image/webp": "webp"
-    };
+    const file=photoInput.files[0];
 
-    const extension = allowed[file.type];
-
-    if (!extension) {
-      setStatus("Use a JPG, PNG or WebP photo.", true);
-      return;
+    if(file){
+      previewUrl=URL.createObjectURL(file);
+      img.src=previewUrl;
+    }else{
+      img.src=resolveImage(product.image);
     }
-
-    if (file.size > 5 * 1024 * 1024) {
-      setStatus("Please use a photo under 5 MB.", true);
-      return;
-    }
-
-    uploadButton.disabled = true;
-    setStatus("Uploading photo...");
-
-    const filename =
-      crypto.randomUUID() + "." + extension;
-
-    const { data, error } = await client.storage
-      .from(BUCKET)
-      .upload(filename, file, {
-        contentType: file.type,
-        upsert: false
-      });
-
-    uploadButton.disabled = false;
-
-    if (error) {
-      setStatus("Upload failed: " + error.message, true);
-      return;
-    }
-
-    const { data: urlData } = client.storage
-      .from(BUCKET)
-      .getPublicUrl(data.path);
-
-    image.input.value = urlData.publicUrl;
-    img.src = urlData.publicUrl;
-
-    setStatus(
-      "Photo uploaded! Now click Save Changes."
-    );
   });
 
-  card.appendChild(uploadButton);
+  const saveButton=document.createElement("button");
+  saveButton.className="save";
+  saveButton.textContent="Save & Publish";
 
-  // SAVE PRODUCT
-  const saveButton = document.createElement("button");
-  saveButton.textContent = "Save Changes";
+  saveButton.addEventListener("click",async()=>{
+    if(!isAdmin(currentUser))return;
 
-  saveButton.addEventListener("click", async () => {
-    if (!isAdmin(currentUser)) return;
+    const productName=name.input.value.trim();
+    const productCategory=category.input.value;
+    const productPrice=Number(price.input.value);
+    const productStock=Number(stock.input.value);
+    const selectedFile=photoInput.files[0];
 
-    const newPrice = Number(price.input.value);
-    const newStock = Number(stock.input.value);
+    if(!productName){
+      setStatus("Enter product name.",true);
+      return;
+    }
 
-    if (
-      !name.input.value.trim() ||
-      price.input.value.trim() === "" ||
-      stock.input.value.trim() === "" ||
-      !Number.isFinite(newPrice) ||
-      newPrice < 0 ||
-      !Number.isInteger(newStock) ||
-      newStock < 0
-    ) {
+    if(!CATEGORY_LIST.includes(productCategory)){
+      setStatus("Select a category.",true);
+      return;
+    }
+
+    if(
+      price.input.value.trim()==="" ||
+      !Number.isFinite(productPrice) ||
+      productPrice<=0
+    ){
+      setStatus("Enter a valid price greater than zero.",true);
+      return;
+    }
+
+    if(
+      stock.input.value.trim()==="" ||
+      !Number.isInteger(productStock) ||
+      productStock<0
+    ){
+      setStatus("Enter valid stock.",true);
+      return;
+    }
+
+    if(isNew && !selectedFile){
+      setStatus("Choose a product photo.",true);
+      return;
+    }
+
+    saveButton.disabled=true;
+
+    try{
+      let imageUrl=String(product.image||"").trim();
+
+      if(selectedFile){
+        setStatus("Uploading product photo...");
+        imageUrl=await uploadPhoto(selectedFile);
+      }
+
+      if(!imageUrl){
+        throw new Error("Product photo is required.");
+      }
+
+      const updates={
+        name:productName,
+        category:productCategory,
+        price:productPrice,
+        sizes:sizes.input.value.trim(),
+        stock:productStock,
+        image:imageUrl,
+        status:"published"
+      };
+
+      setStatus("Saving and publishing product...");
+
+      let result;
+
+      if(isNew){
+        result=await client
+          .from("products")
+          .insert(updates)
+          .select("id");
+      }else{
+        result=await client
+          .from("products")
+          .update(updates)
+          .eq("id",product.id)
+          .select("id");
+      }
+
+      if(result.error){
+        throw result.error;
+      }
+
+      if(!result.data || result.data.length!==1){
+        throw new Error(
+          "Product was not saved. Check Supabase permissions."
+        );
+      }
+
+      if(isNew){
+        newProductArea.replaceChildren();
+      }
+
+      await loadProducts();
+
       setStatus(
-        "Enter a valid product name, price and stock.",
-        true
+        "Product saved and published! Refresh your customer website."
       );
-      return;
+
+    }catch(error){
+      setStatus("Save failed: "+error.message,true);
+    }finally{
+      saveButton.disabled=false;
     }
-
-    if (!CATEGORY_LIST.includes(category.input.value)) {
-      setStatus("Please select a valid category.", true);
-      return;
-    }
-
-    saveButton.disabled = true;
-    setStatus("Saving product...");
-
-    const updates = {
-      name: name.input.value.trim(),
-      price: newPrice,
-      sizes: sizes.input.value.trim(),
-      stock: newStock,
-      image: image.input.value.trim(),
-      category: category.input.value
-    };
-
-    const { data, error } = await client
-      .from("products")
-      .update(updates)
-      .eq("id", product.id)
-      .select("id");
-
-    saveButton.disabled = false;
-
-    if (error || !data || data.length !== 1) {
-      setStatus(
-        "Save failed: " +
-        (error?.message || "Product was not updated."),
-        true
-      );
-      return;
-    }
-
-    await loadProducts();
-    setStatus("Product saved successfully!");
   });
 
   card.appendChild(saveButton);
 
-  // PUBLISH / MOVE TO DRAFT
-  const publishButton = document.createElement("button");
-  publishButton.className = isPublished ? "draft-button" : "publish-button";
-  publishButton.textContent = isPublished ? "Move to Draft" : "Publish Product";
-  publishButton.addEventListener("click", async () => {
-    if (!isAdmin(currentUser)) return;
-    const nextStatus = isPublished ? "draft" : "published";
-    if (!isPublished) {
-      if (!name.input.value.trim() ||
-          !CATEGORY_LIST.includes(category.input.value) ||
-          !image.input.value.trim() ||
-          !Number.isFinite(Number(price.input.value)) ||
-          Number(price.input.value) <= 0 ||
-          !Number.isInteger(Number(stock.input.value)) ||
-          Number(stock.input.value) < 0) {
-        setStatus("Complete name, category, photo, valid price and stock; click Save Changes before publishing.", true);
+  if(!isNew){
+    const deleteButton=document.createElement("button");
+    deleteButton.className="danger";
+    deleteButton.textContent="Delete Product";
+
+    deleteButton.addEventListener("click",async()=>{
+      if(!isAdmin(currentUser))return;
+
+      if(!confirm("Delete this product permanently?")){
         return;
       }
-      if (!confirm("Publish this saved product to the customer catalogue? Unsaved edits will not be included.")) return;
-    } else {
-      if (!confirm("Hide this product from customers and move it to Draft?")) return;
-    }
-    publishButton.disabled = true;
-    setStatus(nextStatus === "published" ? "Publishing product..." : "Moving product to draft...");
-    try {
-      const { data, error } = await client.from("products")
-        .update({ status: nextStatus })
-        .eq("id", product.id)
+
+      deleteButton.disabled=true;
+      setStatus("Deleting product...");
+
+      const {data,error}=await client
+        .from("products")
+        .delete()
+        .eq("id",product.id)
         .select("id");
-      if (error || !data || data.length !== 1) {
-        setStatus("Status change failed: " + (error?.message || "Product was not updated."), true);
+
+      if(error || !data || data.length!==1){
+        setStatus(
+          "Delete failed: "+
+          (error?.message||"Product was not deleted."),
+          true
+        );
+        deleteButton.disabled=false;
         return;
       }
+
       await loadProducts();
-      setStatus(nextStatus === "published" ? "Product published!" : "Product moved to private Draft!");
-    } catch (error) {
-      setStatus("Status change failed: " + error.message, true);
-    } finally {
-      publishButton.disabled = false;
-    }
-  });
-  card.appendChild(publishButton);
+      setStatus("Product deleted successfully.");
+    });
 
-  // DELETE PRODUCT
-  const deleteButton = document.createElement("button");
-  deleteButton.textContent = "Delete Product";
-  deleteButton.className = "danger";
-
-  deleteButton.addEventListener("click", async () => {
-    if (!isAdmin(currentUser)) return;
-
-    if (!confirm(
-      "Delete this product from the catalogue?"
-    )) return;
-
-    deleteButton.disabled = true;
-    setStatus("Deleting product...");
-
-    const { data, error } = await client
-      .from("products")
-      .delete()
-      .eq("id", product.id)
-      .select("id");
-
-    if (error || !data || data.length !== 1) {
-      deleteButton.disabled = false;
-      setStatus(
-        error?.message || "Product was not deleted.",
-        true
-      );
-      return;
-    }
-
-    await loadProducts();
-    setStatus("Product deleted successfully!");
-  });
-
-  card.appendChild(deleteButton);
-  productsArea.appendChild(card);
-}
-
-// ADD PRODUCT
-async function addProduct() {
-  if (!isAdmin(currentUser)) return;
-
-  const name = prompt("Enter new product name:");
-
-  if (!name || !name.trim()) return;
-
-  const choice = prompt("Choose a category number:\n\n" + CATEGORY_LIST.map((x,i) => (i+1) + ". " + x).join("\n") + "\n\nEnter 1–9:");
-  if (choice === null) return;
-  const index = Number(choice.trim()) - 1;
-  if (!Number.isInteger(index) || index < 0 || index >= CATEGORY_LIST.length) {
-    setStatus("Invalid category. Product not added.", true);
-    return;
-  }
-  setStatus("Adding private draft...");
-
-  const { data, error } = await client
-    .from("products")
-    .insert({
-      name: name.trim(),
-      price: 0,
-      sizes: "XS-XXL",
-      stock: 0,
-      image: "",
-      category: CATEGORY_LIST[index],
-      status: "draft"
-    })
-    .select("id");
-
-  if (error || !data || data.length !== 1) {
-    setStatus(
-      "Add failed: " +
-      (error?.message || "Product not created."),
-      true
-    );
-    return;
+    card.appendChild(deleteButton);
   }
 
-  await loadProducts();
-  setStatus(
-    "Private draft added! Upload photo, edit details, Save Changes, then Publish Product."
-  );
+  container.appendChild(card);
 }
 
 document.getElementById("addButton")
-  .addEventListener("click", addProduct);
+.addEventListener("click",()=>{
+  newProductArea.replaceChildren();
+  renderProduct(null,newProductArea);
+
+  newProductArea.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+});
 
 document.getElementById("reloadButton")
-  .addEventListener("click", () => loadProducts());
+.addEventListener("click",()=>{
+  loadProducts();
+});
 
 checkLogin();
 </script>
+
 </body>
 </html>
