@@ -1,634 +1,465 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Buttabomma | Product Manager</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Buttabomma | Easy Product Manager</title>
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  background:#faf7f4;
-  color:#332b3b;
-  font-family:Arial,sans-serif;
-}
-header{
-  background:#dce8d4;
-  text-align:center;
-  padding:30px 15px;
-}
-h1{
-  font-family:Georgia,serif;
-  font-weight:normal;
-}
-main{
-  max-width:1100px;
-  margin:auto;
-  padding:20px;
-}
-button{
-  background:#413052;
-  color:white;
-  border:0;
-  padding:12px 16px;
-  border-radius:8px;
-  cursor:pointer;
-  margin:5px 5px 5px 0;
-}
-button:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
-input,select{
-  width:100%;
-  padding:11px;
-  border:1px solid #ccc;
-  border-radius:7px;
-  margin:6px 0 14px;
-  background:white;
-  font:inherit;
-}
-label{
-  display:block;
-  font-size:13px;
-  font-weight:bold;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:20px;
-}
-.card{
-  background:white;
-  padding:18px;
-  border-radius:12px;
-  box-shadow:0 2px 10px #0001;
-}
-.card img{
-  width:100%;
-  height:300px;
-  object-fit:contain;
-  background:#f5f2ee;
-  border-radius:8px;
-}
+body{margin:0;background:#fcfaf6;color:#332b3b;font:15px system-ui,Arial,sans-serif}
+header{background:linear-gradient(120deg,#dce9d5,#eee5ed);padding:28px 16px;text-align:center}
+h1,h2{font-family:Georgia,serif;font-weight:normal;color:#413052}
+h1{margin:0 0 6px}
+main{max-width:1050px;margin:auto;padding:20px}
+.panel,.item{background:white;border:1px solid #e9e3e7;border-radius:13px;padding:20px;margin-bottom:18px;box-shadow:0 3px 14px #332b3b0c}
 .hidden{display:none!important}
-.danger{background:#a33b46}
-.save{background:#286b3b}
-.notice{
-  background:#e8f2e5;
-  padding:15px;
-  border-radius:10px;
-  margin:18px 0;
-  line-height:1.6;
-}
-#status{
-  padding:12px;
-  margin:15px 0;
-  overflow-wrap:anywhere;
-}
-.error{color:#a33b46}
-.success{color:#286b3b}
-.actions{margin:20px 0}
-a{color:#413052}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+label{display:block;font-weight:600;font-size:13px}
+input,select{display:block;width:100%;padding:11px;margin-top:6px;border:1px solid #d7d0da;border-radius:8px;background:white;font:inherit}
+button{background:#413052;color:white;border:0;border-radius:8px;padding:12px 18px;cursor:pointer;font:inherit;margin:5px 6px 5px 0}
+button:disabled{opacity:.5;cursor:wait}
+.danger{background:#a43e48}
+.secondary{background:#54765b}
+.muted{color:#716a72;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.item img,.preview{width:100%;height:250px;object-fit:contain;background:#f6f2ed;border-radius:8px}
+.item h3{margin:10px 0 5px}
+.thumbs{display:flex;gap:6px;overflow-x:auto;margin:8px 0}
+.thumbs img{width:64px;height:75px;object-fit:contain;border:1px solid #ddd;flex:none}
+.wide input[type=checkbox]{display:inline-block;margin-right:8px}
+#status{padding:13px;border-radius:8px;background:#eaf1e5;margin:15px 0;overflow-wrap:anywhere}
+#status.error{background:#ffe8e8;color:#8b2331}
+.toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.photo-note{font-size:12px;color:#716a72}
+.item .fields{grid-template-columns:1fr 1fr}
+.item .wide{grid-column:1/-1}
+@media(max-width:520px){.item .fields{grid-template-columns:1fr}}
 </style>
 </head>
-
 <body>
-
 <header>
 <h1>Buttabomma The Label</h1>
-<p>Easy Product Management</p>
+<div>Easy Product Manager · Multiple Photos</div>
 </header>
-
 <main>
-
-<section id="loginSection" class="card">
+<section id="login" class="panel">
 <h2>Admin Login</h2>
 <p>Sign in with your authorized Google account.</p>
-<button id="loginButton">Sign in with Google</button>
+<button id="signIn">Sign in with Google</button>
 </section>
 
-<section id="adminSection" class="hidden">
-
-<div class="card">
-<h2>Welcome to Buttabomma Admin ❤️</h2>
-<p id="adminEmail"></p>
-<button id="logoutButton">Sign Out</button>
-<a href="/" target="_blank" rel="noopener">
-View Customer Catalogue
-</a>
+<section id="dashboard" class="hidden">
+<div class="panel toolbar">
+<div>
+<strong id="email"></strong>
+<p class="muted">Products publish automatically when saved.</p>
+</div>
+<div>
+<a href="/" target="_blank" rel="noopener">View customer catalogue</a>
+<button id="signOut" class="secondary">Sign out</button>
+</div>
 </div>
 
-<div class="notice">
-<strong>Easy Product Upload</strong>
-<p>
-Click Add Product, enter details, choose your photo
-and click Save & Publish.
+<section class="panel">
+<h2>Add New Product</h2>
+<form id="addForm">
+<div class="fields">
+<label>Product name *
+<input name="name" required placeholder="Pure Chiffon Maxi">
+</label>
+<label>Category *
+<select name="category" required></select>
+</label>
+<label>Price (₹) *
+<input name="price" type="number" min="0.01" step="0.01" required>
+</label>
+<label>Available pieces *
+<input name="stock" type="number" min="0" step="1" required value="1">
+</label>
+<label>Sizes
+<input name="sizes" value="XS-XXL">
+</label>
+<label>Product photos *
+<input name="photo" type="file" accept="image/jpeg,image/png,image/webp" multiple required>
+</label>
+</div>
+<p class="photo-note">
+Choose multiple JPG, PNG or WebP photos (maximum 5 MB each).
+First photo is the cover. No URLs needed.
 </p>
-<p>
-Your photo uploads automatically and the product
-appears on the customer website.
-</p>
+<button id="addSave" type="submit">Save & Publish Product</button>
+</form>
+</section>
+
+<div class="toolbar">
+<h2>Your Products</h2>
+<button id="reload" class="secondary">Refresh Products</button>
 </div>
-
-<div class="actions">
-<button id="addButton">+ Add New Product</button>
-<button id="reloadButton">Refresh Products</button>
-</div>
-
-<div id="newProductArea"></div>
-
-<h2>Manage Existing Products</h2>
 <div id="products" class="grid"></div>
-
 </section>
-
-<p id="status" role="status">Checking login...</p>
-
+<div id="status" role="status">Checking login…</div>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
-
 <script>
-const SUPABASE_URL =
-"https://knzgtcrtxrilyqvxxjwz.supabase.co";
+const SUPABASE_URL="https://knzgtcrtxrilyqvxxjwz.supabase.co";
+const SUPABASE_KEY="sb_publishable_q7yS4kyiNe527X7pRFOVjg_oc_wtYTO";
+const ADMIN_UID="b7279374-c934-498f-b36d-278ed441e096";
+const BUCKET="product-images";
 
-const SUPABASE_KEY =
-"sb_publishable_q7yS4kyiNe527X7pRFOVjg_oc_wtYTO";
-
-const ADMIN_UID =
-"b7279374-c934-498f-b36d-278ed441e096";
-
-const BUCKET = "product-images";
-
-const CATEGORY_LIST = [
-  "Georgette",
-  "Pure Georgette",
-  "Pure Chiffon",
-  "Chiffon Georgette",
-  "Crush Chiffon",
-  "Mul Chanderi",
-  "Mul Cotton",
-  "Half Sarees",
-  "Designer Frocks"
+const CATEGORY_LIST=[
+"Georgette","Pure Georgette","Pure Chiffon",
+"Chiffon Georgette","Crush Chiffon","Mul Chanderi",
+"Mul Cotton","Half Sarees","Designer Frocks"
 ];
 
-const client = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+let user=null;
 
-const loginSection =
-document.getElementById("loginSection");
-
-const adminSection =
-document.getElementById("adminSection");
-
-const productsArea =
-document.getElementById("products");
-
-const newProductArea =
-document.getElementById("newProductArea");
-
-const statusBox =
-document.getElementById("status");
-
-let currentUser = null;
-let loginVersion = 0;
-
-function setStatus(message,error=false){
-  statusBox.textContent=message;
-  statusBox.className=error?"error":"success";
+function status(message,error=false){
+$('status').textContent=message;
+$('status').className=error?'error':'';
 }
 
-function isAdmin(user){
-  return !!user && user.id===ADMIN_UID;
+function admin(){
+return !!user&&user.id===ADMIN_UID;
 }
 
-function showUser(user){
-  currentUser=user;
-  loginVersion++;
-  const version=loginVersion;
-
-  if(isAdmin(user)){
-    loginSection.classList.add("hidden");
-    adminSection.classList.remove("hidden");
-    document.getElementById("adminEmail")
-      .textContent=user.email||"";
-    loadProducts(version);
-  }else{
-    adminSection.classList.add("hidden");
-    loginSection.classList.remove("hidden");
-    productsArea.replaceChildren();
-    newProductArea.replaceChildren();
-
-    setStatus(
-      user?"This account is not authorized.":
-      "Please sign in to continue.",
-      !!user
-    );
-  }
+function categorySelect(selected=''){
+const s=document.createElement('select');
+s.required=true;
+s.add(new Option('Select category',''));
+CATEGORY_LIST.forEach(x=>s.add(new Option(x,x)));
+s.value=selected;
+return s;
 }
 
-document.getElementById("loginButton")
-.addEventListener("click",async()=>{
-  const {error}=await client.auth.signInWithOAuth({
-    provider:"google",
-    options:{
-      redirectTo:
-      "https://buttabommathelabel.netlify.app/admin.html"
-    }
-  });
-  if(error)setStatus(error.message,true);
+const newCategory=$('addForm').querySelector('select[name=category]');
+CATEGORY_LIST.forEach(x=>newCategory.add(new Option(x,x)));
+newCategory.insertBefore(new Option('Select category',''),newCategory.firstChild);
+
+async function authView(){
+const {data}=await db.auth.getUser();
+user=data?.user||null;
+$('login').classList.toggle('hidden',admin());
+$('dashboard').classList.toggle('hidden',!admin());
+if(admin()){
+$('email').textContent=user.email||'';
+await load();
+}else{
+status(user?'This Google account is not authorized.':'Sign in to manage products.',!!user);
+}
+}
+
+$('signIn').onclick=async()=>{
+const {error}=await db.auth.signInWithOAuth({
+provider:'google',
+options:{redirectTo:'https://buttabommathelabel.netlify.app/admin.html'}
 });
+if(error)status(error.message,true);
+};
 
-document.getElementById("logoutButton")
-.addEventListener("click",async()=>{
-  const {error}=await client.auth.signOut();
-  if(error){
-    setStatus(error.message,true);
-  }else{
-    showUser(null);
-  }
-});
+$('signOut').onclick=async()=>{
+await db.auth.signOut();
+await authView();
+};
 
-async function checkLogin(){
-  const {data,error}=await client.auth.getUser();
-
-  if(error && error.name!=="AuthSessionMissingError"){
-    setStatus(error.message,true);
-  }
-
-  showUser(data?.user||null);
-}
-
-async function loadProducts(version=loginVersion){
-  if(!isAdmin(currentUser))return;
-
-  setStatus("Loading products...");
-
-  const {data,error}=await client
-    .from("products")
-    .select("id,name,price,sizes,stock,image,category,status")
-    .order("id",{ascending:true});
-
-  if(version!==loginVersion || !isAdmin(currentUser)){
-    return;
-  }
-
-  if(error){
-    setStatus(error.message,true);
-    return;
-  }
-
-  productsArea.replaceChildren();
-
-  (data||[]).forEach(product=>{
-    renderProduct(product,productsArea);
-  });
-
-  setStatus("Loaded "+data.length+" products.");
-}
-
-function createField(labelText,value,type="text"){
-  const label=document.createElement("label");
-  label.textContent=labelText;
-
-  const input=document.createElement("input");
-  input.type=type;
-  input.value=value??"";
-
-  if(type==="number"){
-    input.min="0";
-    input.step=labelText==="Price"?"0.01":"1";
-  }
-
-  label.appendChild(input);
-  return {label,input};
-}
-
-function createCategoryField(value){
-  const label=document.createElement("label");
-  label.textContent="Category";
-
-  const select=document.createElement("select");
-
-  const blank=document.createElement("option");
-  blank.value="";
-  blank.textContent="Select Category";
-  select.appendChild(blank);
-
-  CATEGORY_LIST.forEach(category=>{
-    const option=document.createElement("option");
-    option.value=category;
-    option.textContent=category;
-    select.appendChild(option);
-  });
-
-  select.value=CATEGORY_LIST.includes(value)?value:"";
-  label.appendChild(select);
-
-  return {label,input:select};
-}
-
-function resolveImage(value){
-  const path=String(value||"").trim();
-
-  if(!path)return "";
-
-  if(/^https?:\/\//i.test(path)){
-    return path;
-  }
-
-  return path;
+function validateFile(file){
+if(!file)return 'Please choose a product photo.';
+if(!['image/jpeg','image/png','image/webp'].includes(file.type))
+return 'Use a JPG, PNG or WebP image.';
+if(file.size>5*1024*1024)
+return 'Photo must be under 5 MB.';
+return '';
 }
 
 async function uploadPhoto(file){
-  if(!isAdmin(currentUser)){
-    throw new Error("Admin login required.");
-  }
+const problem=validateFile(file);
+if(problem)throw Error(problem);
 
-  const allowed={
-    "image/jpeg":"jpg",
-    "image/png":"png",
-    "image/webp":"webp"
-  };
+const ext={
+'image/jpeg':'jpg',
+'image/png':'png',
+'image/webp':'webp'
+}[file.type];
 
-  const extension=allowed[file.type];
+const path=crypto.randomUUID()+'.'+ext;
 
-  if(!extension){
-    throw new Error("Please choose JPG, PNG or WebP.");
-  }
+const {data,error}=await db.storage.from(BUCKET)
+.upload(path,file,{contentType:file.type,upsert:false});
 
-  if(file.size>5*1024*1024){
-    throw new Error("Photo must be under 5 MB.");
-  }
+if(error)throw Error('Photo upload failed: '+error.message+
+' — check Supabase Storage bucket and upload policy.');
 
-  const filename=
-    crypto.randomUUID()+"."+extension;
-
-  const {data,error}=await client.storage
-    .from(BUCKET)
-    .upload(filename,file,{
-      contentType:file.type,
-      upsert:false
-    });
-
-  if(error){
-    throw new Error("Photo upload failed: "+error.message);
-  }
-
-  const {data:urlData}=client.storage
-    .from(BUCKET)
-    .getPublicUrl(data.path);
-
-  return urlData.publicUrl;
+const {data:publicData}=db.storage.from(BUCKET).getPublicUrl(data.path);
+return {url:publicData.publicUrl,path:data.path};
 }
 
-function renderProduct(product,container){
-  const isNew=!product;
+function payload(form){
+const f=new FormData(form);
+const name=String(f.get('name')||'').trim();
+const category=String(f.get('category')||'');
+const price=Number(f.get('price'));
+const stock=Number(f.get('stock'));
 
-  product=product||{
-    name:"",
-    price:"",
-    sizes:"XS-XXL",
-    stock:"",
-    image:"",
-    category:""
-  };
-
-  const card=document.createElement("div");
-  card.className="card";
-
-  const heading=document.createElement("h3");
-  heading.textContent=isNew?
-    "Add New Product":"Edit Product";
-  card.appendChild(heading);
-
-  const img=document.createElement("img");
-  img.alt="Product preview";
-
-  const imageValue=resolveImage(product.image);
-  if(imageValue)img.src=imageValue;
-
-  card.appendChild(img);
-
-  const name=createField("Product Name",product.name);
-  const category=createCategoryField(product.category);
-  const price=createField("Price",product.price,"number");
-  const sizes=createField("Sizes",product.sizes);
-  const stock=createField("Stock",product.stock,"number");
-
-  [
-    name,category,price,sizes,stock
-  ].forEach(field=>{
-    card.appendChild(field.label);
-  });
-
-  const photoLabel=document.createElement("label");
-  photoLabel.textContent="Choose Product Photo";
-
-  const photoInput=document.createElement("input");
-  photoInput.type="file";
-  photoInput.accept="image/jpeg,image/png,image/webp";
-
-  photoLabel.appendChild(photoInput);
-  card.appendChild(photoLabel);
-
-  let previewUrl="";
-
-  photoInput.addEventListener("change",()=>{
-    if(previewUrl){
-      URL.revokeObjectURL(previewUrl);
-      previewUrl="";
-    }
-
-    const file=photoInput.files[0];
-
-    if(file){
-      previewUrl=URL.createObjectURL(file);
-      img.src=previewUrl;
-    }else{
-      img.src=resolveImage(product.image);
-    }
-  });
-
-  const saveButton=document.createElement("button");
-  saveButton.className="save";
-  saveButton.textContent="Save & Publish";
-
-  saveButton.addEventListener("click",async()=>{
-    if(!isAdmin(currentUser))return;
-
-    const productName=name.input.value.trim();
-    const productCategory=category.input.value;
-    const productPrice=Number(price.input.value);
-    const productStock=Number(stock.input.value);
-    const selectedFile=photoInput.files[0];
-
-    if(!productName){
-      setStatus("Enter product name.",true);
-      return;
-    }
-
-    if(!CATEGORY_LIST.includes(productCategory)){
-      setStatus("Select a category.",true);
-      return;
-    }
-
-    if(
-      price.input.value.trim()==="" ||
-      !Number.isFinite(productPrice) ||
-      productPrice<=0
-    ){
-      setStatus("Enter a valid price greater than zero.",true);
-      return;
-    }
-
-    if(
-      stock.input.value.trim()==="" ||
-      !Number.isInteger(productStock) ||
-      productStock<0
-    ){
-      setStatus("Enter valid stock.",true);
-      return;
-    }
-
-    if(isNew && !selectedFile){
-      setStatus("Choose a product photo.",true);
-      return;
-    }
-
-    saveButton.disabled=true;
-
-    try{
-      let imageUrl=String(product.image||"").trim();
-
-      if(selectedFile){
-        setStatus("Uploading product photo...");
-        imageUrl=await uploadPhoto(selectedFile);
-      }
-
-      if(!imageUrl){
-        throw new Error("Product photo is required.");
-      }
-
-      const updates={
-        name:productName,
-        category:productCategory,
-        price:productPrice,
-        sizes:sizes.input.value.trim(),
-        stock:productStock,
-        image:imageUrl,
-        status:"published"
-      };
-
-      setStatus("Saving and publishing product...");
-
-      let result;
-
-      if(isNew){
-        result=await client
-          .from("products")
-          .insert(updates)
-          .select("id");
-      }else{
-        result=await client
-          .from("products")
-          .update(updates)
-          .eq("id",product.id)
-          .select("id");
-      }
-
-      if(result.error){
-        throw result.error;
-      }
-
-      if(!result.data || result.data.length!==1){
-        throw new Error(
-          "Product was not saved. Check Supabase permissions."
-        );
-      }
-
-      if(isNew){
-        newProductArea.replaceChildren();
-      }
-
-      await loadProducts();
-
-      setStatus(
-        "Product saved and published! Refresh your customer website."
-      );
-
-    }catch(error){
-      setStatus("Save failed: "+error.message,true);
-    }finally{
-      saveButton.disabled=false;
-    }
-  });
-
-  card.appendChild(saveButton);
-
-  if(!isNew){
-    const deleteButton=document.createElement("button");
-    deleteButton.className="danger";
-    deleteButton.textContent="Delete Product";
-
-    deleteButton.addEventListener("click",async()=>{
-      if(!isAdmin(currentUser))return;
-
-      if(!confirm("Delete this product permanently?")){
-        return;
-      }
-
-      deleteButton.disabled=true;
-      setStatus("Deleting product...");
-
-      const {data,error}=await client
-        .from("products")
-        .delete()
-        .eq("id",product.id)
-        .select("id");
-
-      if(error || !data || data.length!==1){
-        setStatus(
-          "Delete failed: "+
-          (error?.message||"Product was not deleted."),
-          true
-        );
-        deleteButton.disabled=false;
-        return;
-      }
-
-      await loadProducts();
-      setStatus("Product deleted successfully.");
-    });
-
-    card.appendChild(deleteButton);
-  }
-
-  container.appendChild(card);
+if(!name||!CATEGORY_LIST.includes(category)||
+!Number.isFinite(price)||price<=0||
+!Number.isInteger(stock)||stock<0||
+String(f.get('price')).trim()===''||
+String(f.get('stock')).trim()===''){
+throw Error('Enter product name, category, valid price and stock.');
 }
 
-document.getElementById("addButton")
-.addEventListener("click",()=>{
-  newProductArea.replaceChildren();
-  renderProduct(null,newProductArea);
+return {
+name,category,price,stock,
+sizes:String(f.get('sizes')||'').trim(),
+status:'published'
+};
+}
 
-  newProductArea.scrollIntoView({
-    behavior:"smooth",
-    block:"start"
-  });
+async function cleanupUploaded(paths){
+if(paths.length)await db.storage.from(BUCKET).remove(paths);
+}
+
+async function uploadMany(files,paths){
+const urls=[];
+for(const file of files){
+status('Uploading photo '+(urls.length+1)+' of '+files.length+'…');
+const uploaded=await uploadPhoto(file);
+paths.push(uploaded.path);
+urls.push(uploaded.url);
+}
+return urls;
+}
+
+function photosOf(p){
+const arr=Array.isArray(p.images)?
+p.images.filter(x=>typeof x==='string'&&x.trim()):[];
+const primary=p.image||'';
+return [primary,...arr].filter((x,i,a)=>x&&a.indexOf(x)===i);
+}
+
+function thumbnails(urls){
+const row=document.createElement('div');
+row.className='thumbs';
+urls.forEach(url=>{
+const im=document.createElement('img');
+im.src=url;
+im.alt='Product photo';
+row.append(im);
+});
+return row;
+}
+
+$('addForm').onsubmit=async e=>{
+e.preventDefault();
+if(!admin())return;
+
+const btn=$('addSave');
+btn.disabled=true;
+const paths=[];
+
+try{
+const values=payload(e.currentTarget);
+const files=[...e.currentTarget.elements.photo.files];
+if(!files.length)throw Error('Choose at least one photo.');
+
+const urls=await uploadMany(files,paths);
+const {data,error}=await db.from('products')
+.insert({...values,image:urls[0],images:urls})
+.select('id');
+
+if(error||!data?.length)
+throw Error('Product save failed: '+(error?.message||'No row returned. Check database policies.'));
+
+e.currentTarget.reset();
+await load(false);
+status('Product published with '+urls.length+' photo(s)!');
+}catch(err){
+await cleanupUploaded(paths);
+status(err.message,true);
+}finally{
+btn.disabled=false;
+}
+};
+
+function field(labelText,name,value,type='text'){
+const label=document.createElement('label');
+label.textContent=labelText;
+const input=document.createElement('input');
+input.name=name;
+input.type=type;
+input.value=value??'';
+
+if(type==='number'){
+input.min=name==='price'?'0.01':'0';
+input.step=name==='price'?'0.01':'1';
+}
+
+label.append(input);
+return label;
+}
+
+async function load(showMessage=true){
+if(!admin())return;
+
+const {data,error}=await db.from('products')
+.select('id,name,category,price,stock,sizes,image,images,status')
+.order('id',{ascending:false});
+
+if(error){
+status('Could not load products: '+error.message,true);
+return;
+}
+
+$('products').replaceChildren();
+(data||[]).forEach(render);
+if(showMessage)status('Loaded '+data.length+' products.');
+}
+
+function render(p){
+const card=document.createElement('div');
+card.className='item';
+
+const img=document.createElement('img');
+img.src=p.image||'';
+img.alt=p.name||'Product photo';
+img.onerror=()=>{
+img.alt='Image not found — upload a new photo below';
+};
+card.append(img);
+
+const existing=photosOf(p);
+card.append(thumbnails(existing));
+
+const title=document.createElement('h3');
+title.textContent=p.name||'Unnamed product';
+card.append(title);
+
+const note=document.createElement('p');
+note.className='muted';
+note.textContent=p.status==='published'?
+'Visible on website':'Not visible yet — save to publish';
+card.append(note);
+
+const form=document.createElement('form');
+const fields=document.createElement('div');
+fields.className='fields';
+
+fields.append(
+field('Product name','name',p.name),
+field('Price (₹)','price',p.price,'number'),
+field('Stock','stock',p.stock,'number'),
+field('Sizes','sizes',p.sizes)
+);
+
+const label=document.createElement('label');
+label.textContent='Category';
+const select=categorySelect(p.category);
+select.name='category';
+label.append(select);
+fields.append(label);
+
+const photo=field('Add photos (optional)','photo','','file');
+photo.className='wide';
+photo.querySelector('input').accept='image/jpeg,image/png,image/webp';
+photo.querySelector('input').multiple=true;
+fields.append(photo);
+
+const replaceLabel=document.createElement('label');
+replaceLabel.className='wide';
+const replace=document.createElement('input');
+replace.type='checkbox';
+replace.name='replacePhotos';
+replace.style.width='auto';
+
+replaceLabel.append(
+replace,
+document.createTextNode(' Replace all old photos with selected new photos')
+);
+fields.append(replaceLabel);
+form.append(fields);
+
+const save=document.createElement('button');
+save.type='submit';
+save.textContent='Save & Publish';
+form.append(save);
+
+const del=document.createElement('button');
+del.type='button';
+del.className='danger';
+del.textContent='Delete';
+form.append(del);
+
+card.append(form);
+$('products').append(card);
+
+form.onsubmit=async e=>{
+e.preventDefault();
+if(!admin())return;
+save.disabled=true;
+const paths=[];
+
+try{
+const values=payload(form);
+const files=[...form.elements.photo.files];
+let urls=replace.checked?[]:photosOf(p);
+
+if(files.length){
+const added=await uploadMany(files,paths);
+urls.push(...added);
+}
+if(!urls.length)throw Error('Choose at least one photo.');
+
+status('Saving product gallery…');
+
+const {data,error}=await db.from('products')
+.update({...values,image:urls[0],images:urls})
+.eq('id',p.id)
+.select('id');
+
+if(error||!data?.length)
+throw Error('Save failed: '+(error?.message||'No row updated.'));
+
+await load(false);
+status('Product saved with '+urls.length+' photo(s)!');
+}catch(err){
+await cleanupUploaded(paths);
+status(err.message,true);
+}finally{
+save.disabled=false;
+}
+};
+
+del.onclick=async()=>{
+if(!admin()||!confirm('Permanently delete '+(p.name||'this product')+'?'))
+return;
+
+del.disabled=true;
+
+const {data,error}=await db.from('products')
+.delete().eq('id',p.id).select('id');
+
+if(error||!data?.length){
+status('Delete failed: '+(error?.message||'No row deleted.'),true);
+del.disabled=false;
+return;
+}
+
+status('Product deleted.');
+await load(false);
+};
+}
+
+$('reload').onclick=()=>load();
+
+db.auth.onAuthStateChange(()=>{
+setTimeout(authView,0);
 });
 
-document.getElementById("reloadButton")
-.addEventListener("click",()=>{
-  loadProducts();
-});
-
-checkLogin();
+authView();
 </script>
-
 </body>
 </html>
