@@ -537,9 +537,20 @@ const searchInput = document.getElementById("searchInput");
 const filterBar = document.getElementById("filterBar");
 const categoryGrid = document.getElementById("categoryGrid");
 
+const CATEGORY_LIST = [
+  "Georgette",
+  "Pure Georgette",
+  "Pure Chiffon",
+  "Chiffon Georgette",
+  "Crush Chiffon",
+  "Mul Chanderi",
+  "Mul Cotton",
+  "Half Sarees",
+  "Designer Frocks"
+];
+
 let allProducts = [];
 let activeCategory = "All";
-
 // Temporary automatic categorisation.
 // Later we can add editable categories to Supabase.
 function categoryOf(item) {
