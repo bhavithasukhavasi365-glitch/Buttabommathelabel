@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#bed4b6">
-<meta name="description" content="Explore beautiful boutique collections at Buttabomma The Label.">
 <title>Buttabomma The Label | Boutique Collections</title>
+<meta name="description" content="Explore elegant boutique collections from Buttabomma The Label.">
 
 <style>
-:root {
+:root{
   --sage:#bed4b6;
   --sage-light:#eaf1e5;
   --purple:#413052;
@@ -30,7 +30,6 @@ button,input{font:inherit}
 button{cursor:pointer}
 a{color:inherit;text-decoration:none}
 [hidden]{display:none!important}
-
 .topbar{
   background:var(--purple);
   color:white;
@@ -58,7 +57,6 @@ a{color:inherit;text-decoration:none}
 .brand{
   font:normal 21px Georgia,serif;
   color:var(--purple);
-  white-space:nowrap;
 }
 .nav-links{
   display:flex;
@@ -96,7 +94,6 @@ a{color:inherit;text-decoration:none}
   font:normal clamp(36px,6vw,65px) Georgia,serif;
   color:var(--purple);
   margin:15px auto;
-  max-width:800px;
 }
 .hero p{
   color:#655e67;
@@ -110,8 +107,8 @@ a{color:inherit;text-decoration:none}
   color:white;
   padding:14px 27px;
   border-radius:5px;
-  font-size:14px;
   border:0;
+  font-size:14px;
 }
 .primary-button:hover{background:#624575}
 .container{
@@ -129,10 +126,7 @@ a{color:inherit;text-decoration:none}
   color:var(--purple);
   margin:10px 0;
 }
-.section-heading p{
-  color:var(--muted);
-  margin:0;
-}
+.section-heading p{color:var(--muted)}
 .search-panel{
   max-width:760px;
   margin:-30px auto 0;
@@ -155,7 +149,6 @@ a{color:inherit;text-decoration:none}
   border:0;
   outline:none;
   background:transparent;
-  font-size:15px;
 }
 .search-wrap button{
   background:var(--purple);
@@ -190,22 +183,9 @@ a{color:inherit;text-decoration:none}
   justify-content:center;
 }
 .category-image img{
-  display:block;
   width:100%;
   height:100%;
   object-fit:contain;
-}
-.category-placeholder{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:100%;
-  height:100%;
-  background:linear-gradient(140deg,#dce9d5,#eee5ed);
-  color:var(--purple);
-  font:italic 22px Georgia,serif;
-  padding:20px;
-  text-align:center;
 }
 .category-title{
   display:block;
@@ -276,7 +256,6 @@ a{color:inherit;text-decoration:none}
   width:100%;
   height:100%;
   object-fit:contain;
-  display:block;
 }
 .gallery-arrow{
   position:absolute;
@@ -289,14 +268,10 @@ a{color:inherit;text-decoration:none}
   border:0;
   border-radius:50%;
   z-index:2;
-  display:flex;
-  align-items:center;
-  justify-content:center;
   font-size:19px;
 }
 .gallery-arrow.previous{left:8px}
 .gallery-arrow.next{right:8px}
-.gallery-arrow:hover{background:var(--purple)}
 .gallery-counter{
   position:absolute;
   bottom:10px;
@@ -314,8 +289,6 @@ a{color:inherit;text-decoration:none}
   gap:7px;
   overflow-x:auto;
   padding:10px;
-  background:white;
-  scrollbar-width:thin;
 }
 .gallery-thumbs button{
   flex:0 0 55px;
@@ -324,7 +297,6 @@ a{color:inherit;text-decoration:none}
   background:#f4f1ed;
   border-radius:6px;
   padding:2px;
-  overflow:hidden;
 }
 .gallery-thumbs button.active{
   border-color:var(--purple);
@@ -355,7 +327,6 @@ a{color:inherit;text-decoration:none}
   display:flex;
   gap:10px;
   justify-content:space-between;
-  align-items:center;
   flex-wrap:wrap;
   font-size:13px;
   color:#62596a;
@@ -414,8 +385,6 @@ footer{
 }
 footer a{text-decoration:underline}
 footer p{font-size:13px;opacity:.85}
-
-/* Full screen photo gallery */
 dialog{
   border:0;
   background:transparent;
@@ -435,8 +404,6 @@ dialog::backdrop{background:#000e}
 .viewer-image{
   max-width:90vw;
   max-height:85vh;
-  width:auto;
-  height:auto;
   object-fit:contain;
 }
 .viewer-close{
@@ -463,7 +430,6 @@ dialog::backdrop{background:#000e}
   width:42px;
   height:42px;
   font-size:23px;
-  z-index:4;
 }
 .viewer-arrow.left{left:12px}
 .viewer-arrow.right{right:12px}
@@ -472,19 +438,15 @@ dialog::backdrop{background:#000e}
   bottom:20px;
   left:50%;
   transform:translateX(-50%);
+  background:var(--purple);
   color:white;
-  background:#413052;
   padding:8px 16px;
   border-radius:20px;
   font-size:13px;
 }
-
 @media(max-width:800px){
-  .product-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
+  .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .category-image{height:210px}
-  .nav-links{gap:12px}
 }
 @media(max-width:600px){
   .menu-button{display:block}
@@ -494,7 +456,6 @@ dialog::backdrop{background:#000e}
     display:none;
     flex-basis:100%;
     flex-direction:column;
-    align-items:stretch;
     gap:0;
   }
   .nav-links.open{display:flex}
@@ -505,35 +466,17 @@ dialog::backdrop{background:#000e}
   .hero{padding:42px 16px 65px}
   .category-grid{gap:10px}
   .category-image{height:145px}
-  .category-title{
-    font-size:16px;
-    padding:12px 5px 4px;
-  }
-  .category-count{
-    font-size:11px;
-    padding-bottom:12px;
-  }
-  .product-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:12px;
-  }
+  .category-title{font-size:16px;padding:12px 5px 4px}
+  .category-count{font-size:11px;padding-bottom:12px}
+  .product-grid{gap:12px}
   .photo{height:250px}
   .details{padding:12px}
   .details h3{font-size:17px}
   .price{font-size:18px}
   .meta{font-size:11px}
-  .tag{font-size:10px}
-  .stock{padding:5px 7px}
   .enquire{font-size:11px;padding:10px 6px}
-  .gallery-arrow{
-    width:29px;
-    height:29px;
-    font-size:15px;
-  }
-  .gallery-thumbs button{
-    flex-basis:42px;
-    height:50px;
-  }
+  .gallery-arrow{width:29px;height:29px;font-size:15px}
+  .gallery-thumbs button{flex-basis:42px;height:50px}
 }
 @media(max-width:380px){
   .product-grid{grid-template-columns:1fr}
@@ -543,18 +486,15 @@ dialog::backdrop{background:#000e}
 </head>
 
 <body>
-
 <div class="topbar">
 BUTTABOMMA THE LABEL · INDIA & INTERNATIONAL
 </div>
 
-<nav class="nav" aria-label="Main navigation">
+<nav class="nav">
 <div class="nav-inner">
 <a href="#home" class="brand">Buttabomma The Label</a>
 <button class="menu-button" id="menuButton"
-aria-expanded="false" aria-controls="navLinks">
-☰ Menu
-</button>
+aria-expanded="false">☰ Menu</button>
 <div class="nav-links" id="navLinks">
 <a href="#home">Home</a>
 <a href="#categories">Categories</a>
@@ -581,15 +521,16 @@ Explore Our Collection
 </header>
 
 <div class="search-panel">
-<div class="search-wrap" role="search">
+<div class="search-wrap">
 <input id="searchInput" type="search"
 placeholder="Search Georgette, Chiffon, Cotton..."
-aria-label="Search our products">
-<button id="searchButton" type="button">Search</button>
+aria-label="Search products">
+<button id="searchButton">Search</button>
 </div>
 </div>
 
-<section class="section" id="categories">
+<!-- Empty categories are hidden automatically -->
+<section class="section" id="categories" hidden>
 <div class="container">
 <div class="section-heading">
 <div class="eyebrow">Explore Our Styles</div>
@@ -615,7 +556,7 @@ aria-label="Search our products">
 <p id="message" class="empty" role="status">
 Loading our latest styles...
 </p>
-<main class="product-grid" id="catalogue"></main>
+<div class="product-grid" id="catalogue"></div>
 </div>
 </section>
 
@@ -651,7 +592,7 @@ aria-label="Close photo">×</button>
 <button class="viewer-arrow left" id="viewerPrevious"
 aria-label="Previous photo">❮</button>
 <img class="viewer-image" id="large"
-alt="Full-size dress photograph">
+alt="Full-size product photograph">
 <button class="viewer-arrow right" id="viewerNext"
 aria-label="Next photo">❯</button>
 <div class="viewer-count" id="viewerCount"></div>
@@ -667,7 +608,7 @@ const SUPABASE_KEY =
 const INSTAGRAM =
 "https://www.instagram.com/buttabomma_thelabel/";
 
-const CATEGORY_LIST = [
+const CATEGORY_LIST=[
 "Georgette",
 "Pure Georgette",
 "Pure Chiffon",
@@ -692,21 +633,33 @@ let activeCategory="All";
 let viewerPhotos=[];
 let viewerIndex=0;
 
-function categoryOf(item){
-return CATEGORY_LIST.includes(item.category)
-?item.category:"Uncategorised";
+// Match categories safely, even with extra spaces or case differences.
+function normalizeCategory(value){
+return String(value||"").trim().toLowerCase()
+.replace(/\s+/g," ");
 }
 
+function categoryOf(item){
+const value=normalizeCategory(item.category);
+return CATEGORY_LIST.find(
+category=>normalizeCategory(category)===value
+)||"Uncategorised";
+}
+
+// IMPORTANT:
+// Only categories with published products are displayed.
 function categories(){
-return CATEGORY_LIST;
+return CATEGORY_LIST.filter(category=>
+allProducts.some(item=>categoryOf(item)===category)
+);
 }
 
 function photosFor(item){
 const primary=String(item.image||"").trim();
-
 const extras=Array.isArray(item.images)
-?item.images.filter(x=>typeof x==="string"&&x.trim())
-:[];
+?item.images.filter(x=>
+typeof x==="string"&&x.trim()
+):[];
 
 return [...new Set([primary,...extras].filter(Boolean))];
 }
@@ -720,7 +673,6 @@ activeCategory=category;
 searchInput.value="";
 renderFilters();
 renderProducts();
-
 document.getElementById("collections")
 .scrollIntoView({behavior:"smooth"});
 }
@@ -728,10 +680,19 @@ document.getElementById("collections")
 function renderCategories(){
 categoryGrid.replaceChildren();
 
-categories().forEach(category=>{
+const available=categories();
+
+// Hide the entire category section if none are available.
+document.getElementById("categories").hidden=
+available.length===0;
+
+available.forEach(category=>{
 const matching=allProducts.filter(
 item=>categoryOf(item)===category
 );
+
+// Only categories with products reach this point.
+if(matching.length===0)return;
 
 const representative=matching.find(
 item=>imageFor(item)
@@ -752,8 +713,11 @@ img.loading="lazy";
 imageBox.appendChild(img);
 }else{
 const placeholder=document.createElement("div");
-placeholder.className="category-placeholder";
-placeholder.textContent="Coming Soon";
+placeholder.style.cssText=
+"display:grid;place-items:center;width:100%;height:100%;"+
+"background:linear-gradient(140deg,#dce9d5,#eee5ed);"+
+"font:italic 22px Georgia,serif;color:#413052";
+placeholder.textContent=category;
 imageBox.appendChild(placeholder);
 }
 
@@ -763,9 +727,8 @@ title.textContent=category;
 
 const total=document.createElement("span");
 total.className="category-count";
-total.textContent=matching.length===0
-?"Coming Soon"
-:matching.length+(matching.length===1?" Style":" Styles");
+total.textContent=matching.length+
+(matching.length===1?" Style":" Styles");
 
 button.append(imageBox,title,total);
 button.addEventListener("click",()=>selectCategory(category));
@@ -782,6 +745,7 @@ button.type="button";
 button.className="filter"+
 (activeCategory===category?" active":"");
 button.textContent=category;
+
 button.setAttribute("aria-pressed",
 String(activeCategory===category));
 
@@ -800,7 +764,7 @@ if(!photos.length)return;
 viewerPhotos=photos;
 viewerIndex=index;
 updateViewer();
-viewer.showModal();
+if(!viewer.open)viewer.showModal();
 }
 
 function updateViewer(){
@@ -819,11 +783,9 @@ document.getElementById("viewerNext").hidden=!multiple;
 
 function moveViewer(direction){
 if(!viewerPhotos.length)return;
-
 viewerIndex=(
 viewerIndex+direction+viewerPhotos.length
 )%viewerPhotos.length;
-
 updateViewer();
 }
 
@@ -857,30 +819,37 @@ photoIndex=(index+gallery.length)%gallery.length;
 img.src=gallery[photoIndex];
 
 if(counter){
-counter.textContent=(photoIndex+1)+" / "+gallery.length;
+counter.textContent=
+(photoIndex+1)+" / "+gallery.length;
 }
 
 thumbnailButtons.forEach((button,i)=>{
 button.classList.toggle("active",i===photoIndex);
-button.setAttribute("aria-pressed",String(i===photoIndex));
+button.setAttribute("aria-pressed",
+String(i===photoIndex));
 });
 }
 
 const wrapper=document.createElement("div");
 wrapper.appendChild(photo);
 
+let touchStartX=0;
+let swipeDetected=false;
+
 if(gallery.length>1){
 const previous=document.createElement("button");
 previous.type="button";
 previous.className="gallery-arrow previous";
 previous.textContent="❮";
-previous.setAttribute("aria-label","Previous product photo");
+previous.setAttribute("aria-label",
+"Previous product photo");
 
 const next=document.createElement("button");
 next.type="button";
 next.className="gallery-arrow next";
 next.textContent="❯";
-next.setAttribute("aria-label","Next product photo");
+next.setAttribute("aria-label",
+"Next product photo");
 
 previous.addEventListener("click",e=>{
 e.stopPropagation();
@@ -894,7 +863,6 @@ showPhoto(photoIndex+1);
 
 counter=document.createElement("div");
 counter.className="gallery-counter";
-
 photo.append(previous,next,counter);
 
 const thumbs=document.createElement("div");
@@ -920,9 +888,6 @@ thumbs.appendChild(button);
 wrapper.appendChild(thumbs);
 showPhoto(0);
 
-let touchStartX=0;
-let swipeDetected=false;
-
 photo.addEventListener("touchstart",e=>{
 touchStartX=e.changedTouches[0].screenX;
 swipeDetected=false;
@@ -937,6 +902,7 @@ swipeDetected=true;
 showPhoto(photoIndex+(difference<0?1:-1));
 }
 },{passive:true});
+}
 
 photo.addEventListener("click",()=>{
 if(swipeDetected){
@@ -946,14 +912,9 @@ return;
 openViewer(gallery,photoIndex);
 });
 
-}else{
-photo.addEventListener("click",()=>{
-openViewer(gallery,photoIndex);
-});
-}
-
 photo.addEventListener("keydown",e=>{
 if(e.target!==photo)return;
+
 if(e.key==="Enter"||e.key===" "){
 e.preventDefault();
 openViewer(gallery,photoIndex);
@@ -1011,7 +972,6 @@ enquire.setAttribute("aria-disabled","true");
 
 details.appendChild(enquire);
 card.append(wrapper,details);
-
 return card;
 }
 
@@ -1042,17 +1002,9 @@ count.textContent=filtered.length+
 message.hidden=filtered.length>0;
 
 if(filtered.length===0){
-const isEmptyCategory=
-activeCategory!=="All"&&!query&&
-!allProducts.some(
-item=>categoryOf(item)===activeCategory
-);
-
-message.textContent=isEmptyCategory
-?"New styles coming soon in "+activeCategory+"!"
-:allProducts.length===0
+message.textContent=allProducts.length===0
 ?"New styles are coming soon."
-:"No matching styles found. Try another search or category.";
+:"No matching styles found. Try another search.";
 }
 }
 
@@ -1078,12 +1030,21 @@ throw new Error("Unexpected product data");
 }
 
 allProducts=products;
+
+// Always reset to All when loading the catalogue.
+activeCategory="All";
+
 renderCategories();
 renderFilters();
 renderProducts();
 
 }catch(error){
 console.error("Catalogue loading error:",error);
+
+document.getElementById("categories").hidden=true;
+filterBar.replaceChildren();
+root.replaceChildren();
+
 count.textContent="Collection unavailable";
 message.hidden=false;
 message.textContent=
