@@ -5,28 +5,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Buttabomma | Product Manager</title>
+
 <style>
 *{box-sizing:border-box}
+
 body{
   margin:0;
   background:#faf7f4;
   color:#332b3b;
   font-family:Arial,sans-serif;
 }
+
 header{
   background:#dce8d4;
   text-align:center;
   padding:30px 15px;
 }
+
 h1{
   font-family:Georgia,serif;
   font-weight:normal;
 }
+
 main{
   max-width:1100px;
   margin:auto;
   padding:22px;
 }
+
 button{
   background:#413052;
   color:white;
@@ -36,31 +42,42 @@ button{
   cursor:pointer;
   margin:5px 5px 5px 0;
 }
-button:disabled{opacity:.5;cursor:not-allowed}
-input{
+
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+input,select{
   padding:10px;
   border:1px solid #ccc;
   border-radius:6px;
   width:100%;
   margin:6px 0 12px;
+  background:white;
+  color:#332b3b;
 }
+
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
   gap:18px;
 }
+
 .card{
   background:white;
   padding:15px;
   border-radius:12px;
   box-shadow:0 2px 8px #0001;
 }
+
 .card img{
   width:100%;
   height:270px;
   object-fit:contain;
   background:#f8f6f3;
 }
+
 .notice{
   background:#fff1d6;
   padding:15px;
@@ -68,26 +85,49 @@ input{
   margin:15px 0;
   line-height:1.6;
 }
+
 .hidden{display:none}
 .danger{background:#a33b46}
+
 label{
   display:block;
   font-size:13px;
   font-weight:bold;
 }
+
 #status{
   margin:15px 0;
   padding:10px;
   overflow-wrap:anywhere;
 }
+
 .error{color:#a33b46}
 .success{color:#286b3b}
 .upload-button{background:#54765b}
 a{color:#413052}
+
+.category-select{
+  border:2px solid #bed4b6;
+  background:#f5faf2;
+  font-weight:600;
+}
+
+.product-id{
+  font-size:12px;
+  color:#716a72;
+  margin:10px 0;
+}
+
+@media(max-width:600px){
+  main{padding:12px}
+  header{padding:22px 12px}
+  .grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 
 <body>
+
 <header>
 <h1>Buttabomma The Label</h1>
 <p>Private Product Management Dashboard</p>
@@ -96,40 +136,50 @@ a{color:#413052}
 <main>
 
 <section id="loginSection" class="card">
-<h2>Admin Login</h2>
-<p>Sign in with your authorized Google account.</p>
-<button id="loginButton">Sign in with Google</button>
+  <h2>Admin Login</h2>
+  <p>Sign in with your authorized Google account.</p>
+  <button id="loginButton">Sign in with Google</button>
 </section>
 
 <section id="adminSection" class="hidden">
 
-<div class="card">
-<h2>Welcome to Buttabomma Admin</h2>
-<p id="adminEmail"></p>
-<button id="logoutButton">Sign Out</button>
-<a href="/" target="_blank" rel="noopener">
-View Customer Catalogue
-</a>
-</div>
+  <div class="card">
+    <h2>Welcome to Buttabomma Admin</h2>
+    <p id="adminEmail"></p>
 
-<div class="notice">
-Edit your product details and click Save Changes.
+    <button id="logoutButton">Sign Out</button>
 
-To add a new photo, click Choose File and then
-Upload Photo. The image will be stored in Supabase.
+    <a href="/" target="_blank" rel="noopener">
+      View Customer Catalogue
+    </a>
+  </div>
 
-After uploading, click Save Changes to connect
-the photo to your product.
+  <div class="notice">
+    <strong>How to manage your products:</strong>
 
-Existing photos will continue working.
-</div>
+    <p>
+      Select the correct fabric category from the dropdown,
+      edit product details, and click Save Changes.
+    </p>
 
-<div class="actions">
-<button id="addButton">+ Add Product</button>
-<button id="reloadButton">Reload Products</button>
-</div>
+    <p>
+      To add a new photo, click Choose File and then
+      Upload Photo. After uploading, click Save Changes
+      to connect the photo to your product.
+    </p>
 
-<div id="products" class="grid"></div>
+    <p>
+      Your existing product photos will continue working.
+    </p>
+  </div>
+
+  <div class="actions">
+    <button id="addButton">+ Add Product</button>
+    <button id="reloadButton">Reload Products</button>
+  </div>
+
+  <div id="products" class="grid"></div>
+
 </section>
 
 <p id="status" role="status">Checking login...</p>
@@ -139,6 +189,7 @@ Existing photos will continue working.
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
 
 <script>
+
 const SUPABASE_URL =
   "https://knzgtcrtxrilyqvxxjwz.supabase.co";
 
@@ -150,6 +201,18 @@ const ADMIN_UID =
 
 const BUCKET = "product-images";
 
+const CATEGORY_LIST = [
+  "Georgette",
+  "Pure Georgette",
+  "Pure Chiffon",
+  "Chiffon Georgette",
+  "Crush Chiffon",
+  "Mul Chanderi",
+  "Mul Cotton",
+  "Half Sarees",
+  "Designer Frocks"
+];
+
 const client = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
@@ -157,31 +220,35 @@ const client = window.supabase.createClient(
 
 const loginSection =
   document.getElementById("loginSection");
+
 const adminSection =
   document.getElementById("adminSection");
+
 const productsArea =
   document.getElementById("products");
+
 const statusBox =
   document.getElementById("status");
 
 let currentUser = null;
 let loginVersion = 0;
 
-function setStatus(message, error = false) {
+function setStatus(message,error=false){
   statusBox.textContent = message;
   statusBox.className = error ? "error" : "success";
 }
 
-function isAdmin(user) {
+function isAdmin(user){
   return !!user && user.id === ADMIN_UID;
 }
 
-function showUser(user) {
+function showUser(user){
   currentUser = user;
   loginVersion++;
+
   const version = loginVersion;
 
-  if (isAdmin(user)) {
+  if(isAdmin(user)){
     loginSection.classList.add("hidden");
     adminSection.classList.remove("hidden");
 
@@ -189,7 +256,7 @@ function showUser(user) {
       .textContent = user.email || "";
 
     loadProducts(version);
-  } else {
+  }else{
     adminSection.classList.add("hidden");
     loginSection.classList.remove("hidden");
     productsArea.replaceChildren();
@@ -203,70 +270,74 @@ function showUser(user) {
   }
 }
 
+// GOOGLE LOGIN
 document.getElementById("loginButton")
-  .addEventListener("click", async () => {
-    const { error } =
+  .addEventListener("click",async()=>{
+    const {error} =
       await client.auth.signInWithOAuth({
-        provider: "google",
-        options: {
+        provider:"google",
+        options:{
           redirectTo:
             "https://buttabommathelabel.netlify.app/admin.html"
         }
       });
 
-    if (error) setStatus(error.message, true);
+    if(error) setStatus(error.message,true);
   });
 
+// SIGN OUT
 document.getElementById("logoutButton")
-  .addEventListener("click", async () => {
-    const { error } = await client.auth.signOut();
+  .addEventListener("click",async()=>{
+    const {error} = await client.auth.signOut();
 
-    if (error) {
-      setStatus(error.message, true);
-    } else {
+    if(error){
+      setStatus(error.message,true);
+    }else{
       showUser(null);
     }
   });
 
-async function checkLogin() {
-  const { data, error } = await client.auth.getUser();
+async function checkLogin(){
+  const {data,error} = await client.auth.getUser();
 
-  if (error && error.name !== "AuthSessionMissingError") {
-    setStatus(error.message, true);
+  if(error && error.name !== "AuthSessionMissingError"){
+    setStatus(error.message,true);
   }
 
   showUser(data?.user || null);
 }
 
-async function loadProducts(version = loginVersion) {
-  if (!isAdmin(currentUser)) return;
+// LOAD PRODUCTS
+async function loadProducts(version=loginVersion){
+  if(!isAdmin(currentUser)) return;
 
   setStatus("Loading products...");
 
-  const { data, error } = await client
+  const {data,error} = await client
     .from("products")
-    .select("id,name,price,sizes,stock,image")
-    .order("id", { ascending: true });
+    .select("id,name,price,sizes,stock,image,category")
+    .order("id",{ascending:true});
 
-  if (version !== loginVersion || !isAdmin(currentUser)) {
+  if(version !== loginVersion || !isAdmin(currentUser)){
     return;
   }
 
-  if (error) {
-    setStatus(error.message, true);
+  if(error){
+    setStatus(error.message,true);
     return;
   }
 
   productsArea.replaceChildren();
 
-  (data || []).forEach(product => {
+  (data || []).forEach(product=>{
     renderProduct(product);
   });
 
-  setStatus("Loaded " + data.length + " products.");
+  setStatus("Loaded " + (data || []).length + " products.");
 }
 
-function createField(labelText, value, type = "text") {
+// CREATE TEXT OR NUMBER FIELD
+function createField(labelText,value,type="text"){
   const label = document.createElement("label");
   label.textContent = labelText;
 
@@ -274,16 +345,47 @@ function createField(labelText, value, type = "text") {
   input.type = type;
   input.value = value ?? "";
 
-  if (type === "number") {
+  if(type === "number"){
     input.min = "0";
     input.step = labelText === "Price" ? "0.01" : "1";
   }
 
   label.appendChild(input);
-  return { label, input };
+
+  return {label,input};
 }
 
-function renderProduct(product) {
+// CREATE CATEGORY DROPDOWN
+function createCategoryField(currentCategory){
+  const label = document.createElement("label");
+  label.textContent = "Product Category";
+
+  const select = document.createElement("select");
+  select.className = "category-select";
+
+  const placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = "-- Select Category --";
+  select.appendChild(placeholder);
+
+  CATEGORY_LIST.forEach(category=>{
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category;
+    select.appendChild(option);
+  });
+
+  select.value = CATEGORY_LIST.includes(currentCategory)
+    ? currentCategory
+    : "";
+
+  label.appendChild(select);
+
+  return {label,input:select};
+}
+
+// DISPLAY EACH PRODUCT
+function renderProduct(product){
   const card = document.createElement("div");
   card.className = "card";
 
@@ -292,17 +394,47 @@ function renderProduct(product) {
   img.alt = product.name || "Product";
   card.appendChild(img);
 
-  const name = createField("Product Name", product.name);
-  const price = createField("Price", product.price, "number");
-  const sizes = createField("Sizes", product.sizes);
-  const stock = createField("Stock", product.stock, "number");
-  const image = createField("Image URL or Filename", product.image);
+  const idLabel = document.createElement("p");
+  idLabel.className = "product-id";
+  idLabel.textContent = "Product ID: " + product.id;
+  card.appendChild(idLabel);
 
-  [name, price, sizes, stock, image].forEach(field => {
+  const name = createField(
+    "Product Name",product.name
+  );
+
+  const category = createCategoryField(
+    product.category
+  );
+
+  const price = createField(
+    "Price",product.price,"number"
+  );
+
+  const sizes = createField(
+    "Sizes",product.sizes
+  );
+
+  const stock = createField(
+    "Stock",product.stock,"number"
+  );
+
+  const image = createField(
+    "Image URL or Filename",product.image
+  );
+
+  [
+    name,
+    category,
+    price,
+    sizes,
+    stock,
+    image
+  ].forEach(field=>{
     card.appendChild(field.label);
   });
 
-  image.input.addEventListener("change", () => {
+  image.input.addEventListener("change",()=>{
     img.src = image.input.value.trim();
   });
 
@@ -313,6 +445,7 @@ function renderProduct(product) {
   const photoInput = document.createElement("input");
   photoInput.type = "file";
   photoInput.accept = "image/jpeg,image/png,image/webp";
+
   photoLabel.appendChild(photoInput);
   card.appendChild(photoLabel);
 
@@ -320,64 +453,68 @@ function renderProduct(product) {
   uploadButton.textContent = "Upload Photo";
   uploadButton.className = "upload-button";
 
-  uploadButton.addEventListener("click", async () => {
-    if (!isAdmin(currentUser)) return;
+  uploadButton.addEventListener("click",async()=>{
+    if(!isAdmin(currentUser)) return;
 
     const file = photoInput.files[0];
 
-    if (!file) {
-      setStatus("Please choose a photo first.", true);
+    if(!file){
+      setStatus("Please choose a photo first.",true);
       return;
     }
 
     const allowed = {
-      "image/jpeg": "jpg",
-      "image/png": "png",
-      "image/webp": "webp"
+      "image/jpeg":"jpg",
+      "image/png":"png",
+      "image/webp":"webp"
     };
 
     const extension = allowed[file.type];
 
-    if (!extension) {
-      setStatus("Use a JPG, PNG or WebP photo.", true);
+    if(!extension){
+      setStatus("Use a JPG, PNG or WebP photo.",true);
       return;
     }
 
-    if (file.size > 5 * 1024 * 1024) {
-      setStatus("Please use a photo under 5 MB.", true);
+    if(file.size > 5*1024*1024){
+      setStatus("Please use a photo under 5 MB.",true);
       return;
     }
 
     uploadButton.disabled = true;
     setStatus("Uploading photo...");
 
-    const filename =
-      crypto.randomUUID() + "." + extension;
+    try{
+      const filename =
+        crypto.randomUUID() + "." + extension;
 
-    const { data, error } = await client.storage
-      .from(BUCKET)
-      .upload(filename, file, {
-        contentType: file.type,
-        upsert: false
-      });
+      const {data,error} = await client.storage
+        .from(BUCKET)
+        .upload(filename,file,{
+          contentType:file.type,
+          upsert:false
+        });
 
-    uploadButton.disabled = false;
+      if(error){
+        setStatus("Upload failed: " + error.message,true);
+        return;
+      }
 
-    if (error) {
-      setStatus("Upload failed: " + error.message, true);
-      return;
+      const {data:urlData} = client.storage
+        .from(BUCKET)
+        .getPublicUrl(data.path);
+
+      image.input.value = urlData.publicUrl;
+      img.src = urlData.publicUrl;
+
+      setStatus(
+        "Photo uploaded! Now click Save Changes."
+      );
+    }catch(error){
+      setStatus("Upload failed: " + error.message,true);
+    }finally{
+      uploadButton.disabled = false;
     }
-
-    const { data: urlData } = client.storage
-      .from(BUCKET)
-      .getPublicUrl(data.path);
-
-    image.input.value = urlData.publicUrl;
-    img.src = urlData.publicUrl;
-
-    setStatus(
-      "Photo uploaded! Now click Save Changes."
-    );
   });
 
   card.appendChild(uploadButton);
@@ -386,13 +523,14 @@ function renderProduct(product) {
   const saveButton = document.createElement("button");
   saveButton.textContent = "Save Changes";
 
-  saveButton.addEventListener("click", async () => {
-    if (!isAdmin(currentUser)) return;
+  saveButton.addEventListener("click",async()=>{
+    if(!isAdmin(currentUser)) return;
 
     const newPrice = Number(price.input.value);
     const newStock = Number(stock.input.value);
+    const selectedCategory = category.input.value;
 
-    if (
+    if(
       !name.input.value.trim() ||
       price.input.value.trim() === "" ||
       stock.input.value.trim() === "" ||
@@ -400,9 +538,17 @@ function renderProduct(product) {
       newPrice < 0 ||
       !Number.isInteger(newStock) ||
       newStock < 0
-    ) {
+    ){
       setStatus(
         "Enter a valid product name, price and stock.",
+        true
+      );
+      return;
+    }
+
+    if(!CATEGORY_LIST.includes(selectedCategory)){
+      setStatus(
+        "Please select a valid product category.",
         true
       );
       return;
@@ -412,32 +558,37 @@ function renderProduct(product) {
     setStatus("Saving product...");
 
     const updates = {
-      name: name.input.value.trim(),
-      price: newPrice,
-      sizes: sizes.input.value.trim(),
-      stock: newStock,
-      image: image.input.value.trim()
+      name:name.input.value.trim(),
+      category:selectedCategory,
+      price:newPrice,
+      sizes:sizes.input.value.trim(),
+      stock:newStock,
+      image:image.input.value.trim()
     };
 
-    const { data, error } = await client
-      .from("products")
-      .update(updates)
-      .eq("id", product.id)
-      .select("id");
+    try{
+      const {data,error} = await client
+        .from("products")
+        .update(updates)
+        .eq("id",product.id)
+        .select("id");
 
-    saveButton.disabled = false;
+      if(error || !data || data.length !== 1){
+        setStatus(
+          "Save failed: " +
+          (error?.message || "Product was not updated."),
+          true
+        );
+        return;
+      }
 
-    if (error || !data || data.length !== 1) {
-      setStatus(
-        "Save failed: " +
-        (error?.message || "Product was not updated."),
-        true
-      );
-      return;
+      await loadProducts();
+      setStatus("Product saved successfully!");
+    }catch(error){
+      setStatus("Save failed: " + error.message,true);
+    }finally{
+      saveButton.disabled = false;
     }
-
-    await loadProducts();
-    setStatus("Product saved successfully!");
   });
 
   card.appendChild(saveButton);
@@ -447,82 +598,125 @@ function renderProduct(product) {
   deleteButton.textContent = "Delete Product";
   deleteButton.className = "danger";
 
-  deleteButton.addEventListener("click", async () => {
-    if (!isAdmin(currentUser)) return;
+  deleteButton.addEventListener("click",async()=>{
+    if(!isAdmin(currentUser)) return;
 
-    if (!confirm(
+    if(!confirm(
       "Delete this product from the catalogue?"
     )) return;
 
     deleteButton.disabled = true;
     setStatus("Deleting product...");
 
-    const { data, error } = await client
-      .from("products")
-      .delete()
-      .eq("id", product.id)
-      .select("id");
+    try{
+      const {data,error} = await client
+        .from("products")
+        .delete()
+        .eq("id",product.id)
+        .select("id");
 
-    if (error || !data || data.length !== 1) {
+      if(error || !data || data.length !== 1){
+        setStatus(
+          error?.message || "Product was not deleted.",
+          true
+        );
+        return;
+      }
+
+      await loadProducts();
+      setStatus("Product deleted successfully!");
+    }catch(error){
+      setStatus("Delete failed: " + error.message,true);
+    }finally{
       deleteButton.disabled = false;
-      setStatus(
-        error?.message || "Product was not deleted.",
-        true
-      );
-      return;
     }
-
-    await loadProducts();
-    setStatus("Product deleted successfully!");
   });
 
   card.appendChild(deleteButton);
   productsArea.appendChild(card);
 }
 
-// ADD PRODUCT
-async function addProduct() {
-  if (!isAdmin(currentUser)) return;
+// ADD NEW PRODUCT
+async function addProduct(){
+  if(!isAdmin(currentUser)) return;
 
   const name = prompt("Enter new product name:");
 
-  if (!name || !name.trim()) return;
+  if(!name || !name.trim()) return;
 
-  setStatus("Adding product...");
+  // Ask for a category before creating the product.
+  const categoryNames = CATEGORY_LIST.map(
+    (category,index)=>(index+1)+". "+category
+  ).join("\n");
 
-  const { data, error } = await client
-    .from("products")
-    .insert({
-      name: name.trim(),
-      price: 0,
-      sizes: "XS-XXL",
-      stock: 0,
-      image: ""
-    })
-    .select("id");
+  const categoryChoice = prompt(
+    "Choose a category number:\n\n" +
+    categoryNames +
+    "\n\nEnter a number from 1 to 9:"
+  );
 
-  if (error || !data || data.length !== 1) {
+  if(categoryChoice === null) return;
+
+  const categoryNumber = Number(categoryChoice.trim());
+
+  if(
+    !Number.isInteger(categoryNumber) ||
+    categoryNumber < 1 ||
+    categoryNumber > CATEGORY_LIST.length
+  ){
     setStatus(
-      "Add failed: " +
-      (error?.message || "Product not created."),
+      "Invalid category number. Product was not added.",
       true
     );
     return;
   }
 
-  await loadProducts();
-  setStatus(
-    "Product added! Upload its photo, enter details and save."
-  );
+  const selectedCategory =
+    CATEGORY_LIST[categoryNumber-1];
+
+  setStatus("Adding product...");
+
+  try{
+    const {data,error} = await client
+      .from("products")
+      .insert({
+        name:name.trim(),
+        category:selectedCategory,
+        price:0,
+        sizes:"XS-XXL",
+        stock:0,
+        image:""
+      })
+      .select("id");
+
+    if(error || !data || data.length !== 1){
+      setStatus(
+        "Add failed: " +
+        (error?.message || "Product not created."),
+        true
+      );
+      return;
+    }
+
+    await loadProducts();
+
+    setStatus(
+      "Product added in " + selectedCategory +
+      "! Upload its photo, enter details and save."
+    );
+  }catch(error){
+    setStatus("Add failed: " + error.message,true);
+  }
 }
 
 document.getElementById("addButton")
-  .addEventListener("click", addProduct);
+  .addEventListener("click",addProduct);
 
 document.getElementById("reloadButton")
-  .addEventListener("click", () => loadProducts());
+  .addEventListener("click",()=>loadProducts());
 
 checkLogin();
+
 </script>
 </body>
 </html>
